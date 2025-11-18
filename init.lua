@@ -13,7 +13,7 @@ vim.o.ignorecase = true
 -- auto center stuff
 
 vim.api.nvim_create_autocmd({"CursorMoved", "CursorMovedI"}, {
-	callback = funktion()
+	callback = function()
 		local win = 0
 		local view = vim.fn.winsaveview()
 
