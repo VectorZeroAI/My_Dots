@@ -15,7 +15,7 @@ vim.o.ignorecase = true
 vim.api.nvim_create_autocmd({"CursorMoved", "CursorMovedI"}, {
 	callback = funktion()
 		local win = 0
-				local view = vim.fn.winsaveview()
+		local view = vim.fn.winsaveview()
 
 		-- compute new topline so cursor stays centeered vertically
 		local height = vim.api.nvim_win_get_height(win)
