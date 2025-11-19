@@ -1,5 +1,6 @@
--- basic options
+-- init.lua - complete config (drop-in)
 
+-- basic options
 vim.opt.number = true
 vim.opt.relativenumber = true
 
@@ -10,45 +11,48 @@ vim.opt.cursorline = true
 
 vim.o.ignorecase = true
 
--- auto center stuff
+vim.o.smoothscroll = true
 
-vim.api.nvim_create_autocmd({"CursorMoved", "CursorMovedI"}, {
-	callback = function()
-		local win = 0
-		local view = vim.fn.winsaveview()
-
-		-- compute new topline so cursor stays centeered vertically
-		local height = vim.api.nvim_win_get_height(win)
-		local cursor_line = view.lnum
-		local new_top = cursor_line - math.floor(height / 2)
-				
-		if new_top < 1 then new_top = 1 end
-
-		view.topline = new_top
-		vim.fn.winrestview(view)
-	end, 
-
-})
+-- tabs as 4 spaces
+vim.opt.expandtab = true       
+vim.opt.tabstop = 4            
+vim.opt.shiftwidth = 4         
+vim.opt.softtabstop = 4        
 
 -- bootstrap lazy.nvim
-
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not vim.loop.fs_stat(lazypath) then
-		vim.fn.system({
-				"git",
-				"clone",
-				"--filter=blob:none",
-				"https://github.com/folke/lazy.nvim.git",
-				lazypath,
-		})
+    vim.fn.system({
+        "git",
+        "clone",
+        "--filter=blob:none",
+        "https://github.com/folke/lazy.nvim.git",
+        lazypath,
+    })
 end
-
 vim.opt.rtp:prepend(lazypath)
 
--- ========= LSP CONFIGURATION =========
-
+-- plugins and configs
 require("lazy").setup({
+    -------------------------------------
+    -- neoscroll - smooth scrolling
+    -------------------------------------
+    {
+        "karb94/neoscroll.nvim",
+        config = function()
+            require("neoscroll").setup({
+                -- optional settings; defaults are OK too
+                easing_function = "cubic",
+                hide_cursor = false,
+                duration_multiplier = 1.5
+            })
+
+        end,
+    },
+
+    -------------------------------------
     -- Treesitter
+    -------------------------------------
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
@@ -60,16 +64,37 @@ require("lazy").setup({
         end,
     },
 
-    -- LSP config
+    ---------------------------------------
+    -- LSP (Neovim 0.11 API)
+    ---------------------------------------
     {
-        "neovim/nvim-lspconfig",
+        "neovim/nvim-lspconfig", -- kept for util helpers; we use new API for servers
         config = function()
-            local lspconfig = require("lspconfig")
-            lspconfig.pyright.setup({})
+            local util = require("lspconfig.util")
+
+            -- define pyright for new API
+            vim.lsp.config["pyright"] = {
+                default_config = {
+                    cmd = { "pyright-langserver", "--stdio" },
+                    filetypes = { "python" },
+                    root_dir = util.root_pattern(
+                        "pyproject.toml",
+                        "setup.py",
+                        "setup.cfg",
+                        ".git"
+                    ),
+                },
+                settings = {},
+            }
+
+            -- enable it so it starts for matching filetypes
+            vim.lsp.enable("pyright")
         end,
     },
 
-    -- Autocompletion
+    -----------------------------------------
+    -- Autocompletion (nvim-cmp)
+    -----------------------------------------
     {
         "hrsh7th/nvim-cmp",
         dependencies = {
