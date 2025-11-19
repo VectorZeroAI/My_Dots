@@ -1,4 +1,4 @@
--- init.lua - complete config (drop-in)
+-- init.lua , config for neovim. 
 
 -- basic options
 vim.opt.number = true
