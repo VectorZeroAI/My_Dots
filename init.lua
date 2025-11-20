@@ -159,6 +159,7 @@ require("lazy").setup({
     --------------------------------------------------------------------
     -- Autocompletion (nvim-cmp)
     --------------------------------------------------------------------
+
     {
         "hrsh7th/nvim-cmp",
         dependencies = {
@@ -167,6 +168,7 @@ require("lazy").setup({
             "hrsh7th/cmp-path",
         },
         config = function()
+            
             local cmp = require("cmp")
 
             cmp.setup({
@@ -175,19 +177,47 @@ require("lazy").setup({
                     ["<CR>"] = cmp.mapping.confirm({ select = true }),
                 }),
 
+                -- GLOBAL FILTER: remove kind == 1 ("Text")
+                entry_filter = function(entry)
+                    local kind = entry:get_kind()
+                    -- some sources return nil kinds; keep them
+                    if kind == nil then
+                        return true
+                    end
+                    -- 1 == Text
+                    return kind ~= 1
+                end,
+
+                formatting = {
+                    format = function(entry, item)
+                        -- never return nil; this avoids crashes
+                        if item == nil then
+                            return {
+                                abbr = "",
+                                kind = "",
+                                menu = "",
+                            }
+                        end
+
+                        if item.kind == "Text" then
+                            -- hide visually
+                            item.kind = ""
+                            item.abbr = ""
+                        end
+
+                        return item
+                    end,
+                },
+
                 sources = {
-                      {
-                          name = "nvim_lsp",
-                          entry_filter = function(entry)
-				  return entry:get_kind() ~= 1 -- filter out "Text"
-                          end,
-                      },
-                      { name = "buffer" },
-                      { name = "path" },
+                    { name = "nvim_lsp" },
+                    { name = "buffer" },
+                    { name = "path" },
                 },
             })
-        end,
+        end
     },
+
 })
 
 
@@ -202,3 +232,5 @@ vim.g.nord_bold = true                -- enable bold for keywords
 
 -- enaling the colortheme. specifically the:
 vim.cmd.colorscheme("nord")
+
+
