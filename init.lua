@@ -1,4 +1,4 @@
--- init.lua , config for neovim. 
+-- init.lua - complete config (drop-in)
 
 -- basic options
 vim.opt.number = true
@@ -14,10 +14,10 @@ vim.o.ignorecase = true
 vim.o.smoothscroll = true
 
 -- tabs as 4 spaces
-vim.opt.expandtab = true       
-vim.opt.tabstop = 4            
-vim.opt.shiftwidth = 4         
-vim.opt.softtabstop = 4        
+vim.opt.expandtab = true       -- use spaces instead of tabs
+vim.opt.tabstop = 4            -- how many columns a tab counts for
+vim.opt.shiftwidth = 4         -- indentation amount for >>, << and autoindent
+vim.opt.softtabstop = 4        -- number of spaces a <Tab> counts for while editing
 
 -- bootstrap lazy.nvim
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -34,9 +34,9 @@ vim.opt.rtp:prepend(lazypath)
 
 -- plugins and configs
 require("lazy").setup({
-    -------------------------------------
+    --------------------------------------------------------------------
     -- neoscroll - smooth scrolling
-    -------------------------------------
+    --------------------------------------------------------------------
     {
         "karb94/neoscroll.nvim",
         config = function()
@@ -50,9 +50,9 @@ require("lazy").setup({
         end,
     },
 
-    -------------------------------------
+    --------------------------------------------------------------------
     -- Treesitter
-    -------------------------------------
+    --------------------------------------------------------------------
     {
         "nvim-treesitter/nvim-treesitter",
         build = ":TSUpdate",
@@ -63,10 +63,21 @@ require("lazy").setup({
             })
         end,
     },
+    
 
-    ---------------------------------------
+    {
+        "shaunsingh/nord.nvim",
+        priority = 1000
+    },
+
+
+
+
+
+
+    --------------------------------------------------------------------
     -- LSP (Neovim 0.11 API)
-    ---------------------------------------
+    --------------------------------------------------------------------
     {
         "neovim/nvim-lspconfig", -- kept for util helpers; we use new API for servers
         config = function()
@@ -92,9 +103,9 @@ require("lazy").setup({
         end,
     },
 
-    -----------------------------------------
+    --------------------------------------------------------------------
     -- Autocompletion (nvim-cmp)
-    -----------------------------------------
+    --------------------------------------------------------------------
     {
         "hrsh7th/nvim-cmp",
         dependencies = {
