@@ -175,21 +175,15 @@ require("lazy").setup({
                     ["<CR>"] = cmp.mapping.confirm({ select = true }),
                 }),
 
-                --- FILTER OUT "Text" KIND ENTRIES
-                formatting = {
-                    format = function(entry, item)
-                        -- 1 = "Text" in LSP CompletionItemKind
-                        if item.kind == "Text" then
-                            return nil -- hide this entry completely
-                        end
-                        return item
-                    end,
-                },
-
                 sources = {
-                    { name = "nvim_lsp" },
-                    { name = "buffer" },
-                    { name = "path" },
+                      {
+                          name = "nvim_lsp",
+                          entry_filter = function(entry)
+				  return entry:get_kind() ~= 1 -- filter out "Text"
+                          end,
+                      },
+                      { name = "buffer" },
+                      { name = "path" },
                 },
             })
         end,
@@ -198,4 +192,13 @@ require("lazy").setup({
 
 
 -- Theme
+
+vim.g.nord_contrast = false           -- darker background for sidebar, split etc.
+vim.g.nord_borders = true             -- module borders like VS Code
+vim.g.nord_disable_background = false -- transparent background
+vim.g.nord_cursorline_transparent = false
+vim.g.nord_italic = false             -- disable italic everywhere
+vim.g.nord_bold = true                -- enable bold for keywords
+
+-- enaling the colortheme. specifically the:
 vim.cmd.colorscheme("nord")
