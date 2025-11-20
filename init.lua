@@ -50,11 +50,24 @@ require("lazy").setup({
         end,
     },
 
+    -------------------------------------
+    -- indent-blankline 
+    -------------------------------------
 
     {
         "lukas-reineke/indent-blankline.nvim",
         main = "ibl",
         opts = {}
+    },
+
+
+    {
+    "neovim/nvim-lspconfig",
+    config = function()
+        local lspconfig = require("lspconfig")
+        lspconfig.pyright.setup({})
+        lspconfig.ruff_lsp.setup({})
+        end
     },
 
     --------------------------------------------------------------------
@@ -103,30 +116,45 @@ require("lazy").setup({
     --------------------------------------------------------------------
     -- LSP (Neovim 0.11 API)
     --------------------------------------------------------------------
-    {
-        "neovim/nvim-lspconfig", -- kept for util helpers; we use new API for servers
-        config = function()
-            local util = require("lspconfig.util")
+	{
+	    "neovim/nvim-lspconfig",
+	    config = function()
+		local util = require("lspconfig.util")
 
-            -- define pyright for new API
-            vim.lsp.config["pyright"] = {
-                default_config = {
-                    cmd = { "pyright-langserver", "--stdio" },
-                    filetypes = { "python" },
-                    root_dir = util.root_pattern(
-                        "pyproject.toml",
-                        "setup.py",
-                        "setup.cfg",
-                        ".git"
-                    ),
-                },
-                settings = {},
-            }
+		-- Pyright
+		vim.lsp.config["pyright"] = {
+		    default_config = {
+			cmd = { "pyright-langserver", "--stdio" },
+			filetypes = { "python" },
+			root_dir = util.root_pattern(
+			    "pyproject.toml",
+			    "setup.py",
+			    "setup.cfg",
+			    ".git"
+			),
+		    },
+		    settings = {},
+		}
 
-            -- enable it so it starts for matching filetypes
-            vim.lsp.enable("pyright")
-        end,
-    },
+		-- Ruff LSP
+		vim.lsp.config["ruff_lsp"] = {
+		    default_config = {
+			cmd = { "ruff-lsp" },
+			filetypes = { "python" },
+			root_dir = util.root_pattern(
+			    "pyproject.toml",
+			    "ruff.toml",
+			    ".git"
+			),
+		    },
+		    settings = {},
+		}
+
+		-- Enable them
+		vim.lsp.enable("pyright")
+		vim.lsp.enable("ruff_lsp")
+	    end,
+	},
 
     --------------------------------------------------------------------
     -- Autocompletion (nvim-cmp)
