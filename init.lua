@@ -129,3 +129,7 @@ require("lazy").setup({
         end,
     },
 })
+
+
+-- Theme
+vim.cmd.colorscheme("nord")
