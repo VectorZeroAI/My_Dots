@@ -50,6 +50,31 @@ require("lazy").setup({
         end,
     },
 
+
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        main = "ibl",
+        opts = {}
+    },
+
+    --------------------------------------------------------------------
+    -- neoscroll - smooth scrolling
+    --------------------------------------------------------------------
+    {
+        "karb94/neoscroll.nvim",
+        config = function()
+            require("neoscroll").setup({
+                -- optional settings; defaults are OK too
+                easing_function = "cubic",
+                hide_cursor = false,
+                duration_multiplier = 1.5
+            })
+
+        end,
+    },
+
+
+
     --------------------------------------------------------------------
     -- Treesitter
     --------------------------------------------------------------------
