@@ -168,11 +168,24 @@ require("lazy").setup({
         },
         config = function()
             local cmp = require("cmp")
+
             cmp.setup({
                 mapping = cmp.mapping.preset.insert({
                     ["<C-Space>"] = cmp.mapping.complete(),
                     ["<CR>"] = cmp.mapping.confirm({ select = true }),
                 }),
+
+                --- FILTER OUT "Text" KIND ENTRIES
+                formatting = {
+                    format = function(entry, item)
+                        -- 1 = "Text" in LSP CompletionItemKind
+                        if item.kind == "Text" then
+                            return nil -- hide this entry completely
+                        end
+                        return item
+                    end,
+                },
+
                 sources = {
                     { name = "nvim_lsp" },
                     { name = "buffer" },
