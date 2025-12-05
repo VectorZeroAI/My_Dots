@@ -217,6 +217,21 @@ require("lazy").setup({
         end
     },
 
+    {
+        "YousefHadder/markdown-plus.nvim",
+        ft = { "markdown" },      
+        config = function()
+            require("markdown-plus").setup({
+                enabled = true,
+                filetypes = { "markdown", "md", "markdown.mdx" },
+            features = {
+                code_block = true, 
+            },
+            })
+        end
+    }
+
+
 })
 
 
