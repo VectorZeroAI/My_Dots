@@ -217,21 +217,6 @@ require("lazy").setup({
         end
     },
 
-    {
-        "YousefHadder/markdown-plus.nvim",
-        ft = { "markdown" },      
-        config = function()
-            require("markdown-plus").setup({
-                enabled = true,
-                filetypes = { "markdown", "md", "markdown.mdx" },
-            features = {
-                code_block = true, 
-            },
-            })
-        end
-    }
-
-
 })
 
 
@@ -247,8 +232,69 @@ vim.g.nord_bold = true                -- enable bold for keywords
 -- enaling the colortheme. specifically the:
 vim.cmd.colorscheme("nord")
 
--- enable the pop up with explanation of what the fuck the error is, exept making me go to chatGPT. 
-
+-- enable to see the error instdead of just seeing that the error is there. 
 vim.o.updatetime = 250
 vim.cmd [[autocmd CursorHold * lua vim.diagnostic.open_float(nil, {focus=false})]]
 
+vim.opt_local.wrap = false
+
+-- Enable wrapping only for markdown
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "markdown",
+  callback = function()
+    vim.opt_local.wrap = true
+  end,
+})
+
+
+-- Enabling 3 nore LSPs, specifically LUA, JSON and SQL, 
+-- specifically jsonls , sqls , lua_ls . 
+
+-- place this in your init.lua or lua/config/lsp.lua (or similar)
+-- Neovim 0.11+ native LSP style
+
+local tbl_extend = vim.tbl_deep_extend
+
+-- ----------------
+-- JSON (no special overrides needed)
+-- ----------------
+-- If you don't need custom settings you can just enable the server;
+-- nvim-lspconfig already provides sane defaults for jsonls.
+vim.lsp.enable('jsonls')
+
+-- ----------------
+-- SQL (we want to set `settings.sqls.connections = {}`)
+-- ----------------
+vim.lsp.config['sqls'] = tbl_extend("force", vim.lsp.config['sqls'] or {}, {
+  -- keep filetypes/cmd/defaults from upstream if present, just add our settings
+  settings = {
+    sqls = {
+      connections = {}
+    }
+  }
+})
+vim.lsp.enable('sqls')
+
+-- ----------------
+-- Lua (customize runtime, globals, workspace)
+-- ----------------
+vim.lsp.config['lua_ls'] = tbl_extend("force", vim.lsp.config['lua_ls'] or {}, {
+  settings = {
+    Lua = {
+      runtime = {
+        version = 'LuaJIT',
+      },
+      diagnostics = {
+        globals = { 'vim' }, -- don't warn about `vim` in config
+      },
+      workspace = {
+        library = vim.api.nvim_get_runtime_file("", true),
+        checkThirdParty = false,
+      },
+      telemetry = {
+        enable = false,
+      },
+    },
+  },
+})
+vim.lsp.enable('lua_ls')
