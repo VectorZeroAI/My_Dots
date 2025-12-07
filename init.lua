@@ -247,4 +247,8 @@ vim.g.nord_bold = true                -- enable bold for keywords
 -- enaling the colortheme. specifically the:
 vim.cmd.colorscheme("nord")
 
+-- enable the pop up with explanation of what the fuck the error is, exept making me go to chatGPT. 
+
+vim.o.updatetime = 250
+vim.cmd [[autocmd CursorHold * lua vim.diagnostic.open_float(nil, {focus=false})]]
 
