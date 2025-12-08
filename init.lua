@@ -34,6 +34,33 @@ vim.opt.rtp:prepend(lazypath)
 
 -- plugins and configs
 require("lazy").setup({
+
+    {
+        "VectorZeroAI/ai_diagnos.nvim",
+        config = function ()
+            require("ai_diagnos").setup({
+                api_key = "nope, didnt forget",
+                model = "tngtech/deepseek-r1t2-chimera:free",
+                timeout_ms = 999999
+            })
+            
+        end
+    },
+
+    -- markdown +, for markdown files. 
+    {
+        "yousefhadder/markdown-plus.nvim",
+        ft = { "markdown", "text", "txt" },
+        config = function()
+            require("markdown-plus").setup({
+                -- (you can omit this table if defaults are fine)
+                filetypes = { "markdown", "md"},
+                -- and you can customize features if you like, e.g.:
+                features = { list_management = true, text_formatting = true,}
+            })
+        end,
+    },
+
     --------------------------------------------------------------------
     -- neoscroll - smooth scrolling
     --------------------------------------------------------------------
@@ -69,24 +96,6 @@ require("lazy").setup({
         lspconfig.ruff_lsp.setup({})
         end
     },
-
-    --------------------------------------------------------------------
-    -- neoscroll - smooth scrolling
-    --------------------------------------------------------------------
-    {
-        "karb94/neoscroll.nvim",
-        config = function()
-            require("neoscroll").setup({
-                -- optional settings; defaults are OK too
-                easing_function = "cubic",
-                hide_cursor = false,
-                duration_multiplier = 1.5
-            })
-
-        end,
-    },
-
-
 
     --------------------------------------------------------------------
     -- Treesitter
@@ -176,38 +185,6 @@ require("lazy").setup({
                     ["<C-Space>"] = cmp.mapping.complete(),
                     ["<CR>"] = cmp.mapping.confirm({ select = true }),
                 }),
-
-                -- GLOBAL FILTER: remove kind == 1 ("Text")
-                entry_filter = function(entry)
-                    local kind = entry:get_kind()
-                    -- some sources return nil kinds; keep them
-                    if kind == nil then
-                        return true
-                    end
-                    -- 1 == Text
-                    return kind ~= 1
-                end,
-
-                formatting = {
-                    format = function(entry, item)
-                        -- never return nil; this avoids crashes
-                        if item == nil then
-                            return {
-                                abbr = "",
-                                kind = "",
-                                menu = "",
-                            }
-                        end
-
-                        if item.kind == "Text" then
-                            -- hide visually
-                            item.kind = ""
-                            item.abbr = ""
-                        end
-
-                        return item
-                    end,
-                },
 
                 sources = {
                     { name = "nvim_lsp" },
