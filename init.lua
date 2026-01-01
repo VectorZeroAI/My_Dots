@@ -122,7 +122,7 @@ require("lazy").setup({
         config = function()
             require("nvim-treesitter.configs").setup({
                 ensure_installed = { "python", "lua", "json", "sql", "markdown" },
-                
+
                 highlight = { enable = true },
                 indent = { enable = true },
 
@@ -208,19 +208,16 @@ require("lazy").setup({
                 },
             }
 
-            -- Python: Ruff (linting/formatting)
-            vim.lsp.config.ruff_lsp = {
+            -- Python: Ruff (linting/formatting - new native server)
+            vim.lsp.config.ruff = {
                 default_config = {
-                    cmd = { "ruff-lsp" },
+                    cmd = { "ruff", "server", "--preview" },
                     filetypes = { "python" },
                     root_dir = util.root_pattern(
                         "pyproject.toml",
                         "ruff.toml",
                         ".git"
                     ),
-                },
-                settings = {
-                    hover = { enable = false },
                 },
             }
 
@@ -269,7 +266,7 @@ require("lazy").setup({
 
             -- Enable all servers
             vim.lsp.enable("pyright")
-            vim.lsp.enable("ruff_lsp")
+            vim.lsp.enable("ruff")
             vim.lsp.enable("jsonls")
             vim.lsp.enable("sqls")
             vim.lsp.enable("lua_ls")
