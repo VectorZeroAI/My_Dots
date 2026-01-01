@@ -121,7 +121,7 @@ vim.opt.rtp:prepend(lazypath)
             },
             config = function()
                 require("nvim-treesitter.configs").setup({
-                    ensure_installed = { "python", "lua", "json", "sql", "markdown" },
+                    ensure_installed = { "python", "lua", "json", "sql", "markdown", "go" },
 
                     highlight = { enable = true },
                     indent = { enable = true },
@@ -264,12 +264,32 @@ vim.opt.rtp:prepend(lazypath)
                     },
                 }
 
+                -- Go
+                vim.lsp.config.gopls = {
+                    default_config = {
+                        cmd = { "gopls" },
+                        filetypes = { "go", "gomod", "gowork", "gotmpl" },
+                        root_dir = util.root_pattern("go.work", "go.mod", ".git"),
+                        settings = {
+                            gopls = {
+                                analyses = {
+                                    unusedparams = true,
+                                    unusedwrite = true,
+                                },
+                                staticcheck = true,
+                                gofumpt = false,
+                            },
+                        },
+                    },
+                }
+
                 -- Enable all servers
                 vim.lsp.enable("pyright")
                 vim.lsp.enable("ruff")
                 vim.lsp.enable("jsonls")
                 vim.lsp.enable("sqls")
                 vim.lsp.enable("lua_ls")
+                vim.lsp.enable("gopls")
             end,
         },
     -- ============================================================
