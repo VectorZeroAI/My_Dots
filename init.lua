@@ -300,7 +300,6 @@ vim.opt.rtp:prepend(lazypath)
                     { name = "nvim_lsp_signature_help" },
                     { name = "nvim_lua" },
                     { name = "path" },
-                    { name = "buffer" },
                 },
             })
 
