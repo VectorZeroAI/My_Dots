@@ -49,230 +49,229 @@ vim.opt.rtp:prepend(lazypath)
 -- ============================================================
 -- PLUGINS
 -- ============================================================
-require("lazy").setup({
+    require("lazy").setup({
 
-    -- Theme (load first)
-    {
-        "shaunsingh/nord.nvim",
-        priority = 1000,
-        config = function()
-            vim.g.nord_contrast = false
-            vim.g.nord_borders = true
-            vim.g.nord_disable_background = false
-            vim.g.nord_cursorline_transparent = false
-            vim.g.nord_italic = false
-            vim.g.nord_bold = true
-            vim.cmd.colorscheme("nord")
-        end,
-    },
-
-    -- AI diagnostics
-    {
-        "VectorZeroAI/ai_diagnos.nvim",
-        config = function()
-            require("ai_diagnos").setup({
-                api_key = "nope, didnt forget",
-                model = "tngtech/deepseek-r1t2-chimera:free",
-                timeout_ms = 30000,
-            })
-        end,
-    },
-
-    -- Markdown enhancements
-    {
-        "yousefhadder/markdown-plus.nvim",
-        ft = { "markdown", "text", "txt" },
-        config = function()
-            require("markdown-plus").setup({
-                filetypes = { "markdown", "md" },
-                features = {
-                    list_management = true,
-                    text_formatting = true,
-                },
-            })
-        end,
-    },
-
-    -- Smooth scrolling
-    {
-        "karb94/neoscroll.nvim",
-        config = function()
-            require("neoscroll").setup({
-                easing_function = "cubic",
-                hide_cursor = false,
-                duration_multiplier = 1.5,
-            })
-        end,
-    },
-
-    -- Indent guides
-    {
-        "lukas-reineke/indent-blankline.nvim",
-        main = "ibl",
-        opts = {},
-    },
-
-    -- Treesitter (syntax highlighting)
-    {
-        "nvim-treesitter/nvim-treesitter",
-        build = ":TSUpdate",
-        dependencies = {
-            "nvim-treesitter/nvim-treesitter-textobjects",
+        -- Theme (load first)
+        {
+            "shaunsingh/nord.nvim",
+            priority = 1000,
+            config = function()
+                vim.g.nord_contrast = false
+                vim.g.nord_borders = true
+                vim.g.nord_disable_background = false
+                vim.g.nord_cursorline_transparent = false
+                vim.g.nord_italic = false
+                vim.g.nord_bold = true
+                vim.cmd.colorscheme("nord")
+            end,
         },
-        config = function()
-            require("nvim-treesitter.configs").setup({
-                ensure_installed = { "python", "lua", "json", "sql", "markdown" },
 
-                highlight = { enable = true },
-                indent = { enable = true },
+        -- AI diagnostics
+        {
+            "VectorZeroAI/ai_diagnos.nvim",
+            config = function()
+                require("ai_diagnos").setup({
+                    api_key = "nope, didnt forget",
+                    model = "tngtech/deepseek-r1t2-chimera:free",
+                    timeout_ms = 30000,
+                })
+            end,
+        },
 
-                -- Textobjects: structural editing
-                textobjects = {
-                    select = {
+        -- Markdown enhancements
+        {
+            "yousefhadder/markdown-plus.nvim",
+            ft = { "markdown", "text", "txt" },
+            config = function()
+                require("markdown-plus").setup({
+                    filetypes = { "markdown", "md" },
+                    features = {
+                        list_management = true,
+                        text_formatting = true,
+                    },
+                })
+            end,
+        },
+
+        -- Smooth scrolling
+        {
+            "karb94/neoscroll.nvim",
+            config = function()
+                require("neoscroll").setup({
+                    easing_function = "cubic",
+                    hide_cursor = false,
+                    duration_multiplier = 1.5,
+                })
+            end,
+        },
+
+        -- Indent guides
+        {
+            "lukas-reineke/indent-blankline.nvim",
+            main = "ibl",
+            opts = {},
+        },
+
+        -- Treesitter (syntax highlighting)
+        {
+            "nvim-treesitter/nvim-treesitter",
+            build = ":TSUpdate",
+            dependencies = {
+                "nvim-treesitter/nvim-treesitter-textobjects",
+            },
+            config = function()
+                require("nvim-treesitter.configs").setup({
+                    ensure_installed = { "python", "lua", "json", "sql", "markdown" },
+
+                    highlight = { enable = true },
+                    indent = { enable = true },
+
+                    -- Textobjects: structural editing
+                    textobjects = {
+                        select = {
+                            enable = true,
+                            lookahead = true,
+
+                            keymaps = {
+                                -- Functions
+                                ["af"] = "@function.outer",
+                                ["if"] = "@function.inner",
+
+                                -- Classes
+                                ["ac"] = "@class.outer",
+                                ["ic"] = "@class.inner",
+
+                                -- Arguments/parameters
+                                ["aa"] = "@parameter.outer",
+                                ["ia"] = "@parameter.inner",
+                            },
+                        },
+
+                        move = {
+                            enable = true,
+                            set_jumps = true,
+
+                            goto_next_start = {
+                                ["]m"] = "@function.outer",
+                                ["]]"] = "@class.outer",
+                            },
+
+                            goto_previous_start = {
+                                ["[m"] = "@function.outer",
+                                ["[["] = "@class.outer",
+                            },
+                        },
+
+                        swap = {
+                            enable = true,
+
+                            swap_next = {
+                                ["<leader>a"] = "@parameter.inner",
+                            },
+                            swap_previous = {
+                                ["<leader>A"] = "@parameter.inner",
+                            },
+                        },
+                    },
+
+                    -- Incremental selection
+                    incremental_selection = {
                         enable = true,
-                        lookahead = true,
-
                         keymaps = {
-                            -- Functions
-                            ["af"] = "@function.outer",
-                            ["if"] = "@function.inner",
-
-                            -- Classes
-                            ["ac"] = "@class.outer",
-                            ["ic"] = "@class.inner",
-
-                            -- Arguments/parameters
-                            ["aa"] = "@parameter.outer",
-                            ["ia"] = "@parameter.inner",
+                            init_selection = "gnn",
+                            node_incremental = "grn",
+                            node_decremental = "grm",
                         },
                     },
+                })
+            end,
+        },
 
-                    move = {
-                        enable = true,
-                        set_jumps = true,
+        -- ============================================================
+        -- LSP CONFIGURATION (0.11+ Native API Only)
+        -- ============================================================
+        {
+            "neovim/nvim-lspconfig",
+            config = function()
+                local util = require("lspconfig.util")
 
-                        goto_next_start = {
-                            ["]m"] = "@function.outer",
-                            ["]]"] = "@class.outer",
-                        },
+                -- Python: Pyright (type checking)
+                vim.lsp.config.pyright = {
+                    default_config = {
+                        cmd = { "pyright-langserver", "--stdio" },
+                        filetypes = { "python" },
+                        root_dir = util.root_pattern(
+                            "pyproject.toml",
+                            "setup.py",
+                            ".git"
+                        ),
+                    },
+                }
 
-                        goto_previous_start = {
-                            ["[m"] = "@function.outer",
-                            ["[["] = "@class.outer",
+                -- Python: Ruff (linting/formatting - new native server)
+                vim.lsp.config.ruff = {
+                    default_config = {
+                        cmd = { "ruff", "server", "--preview" },
+                        filetypes = { "python" },
+                        root_dir = util.root_pattern(
+                            "pyproject.toml",
+                            "ruff.toml",
+                            ".git"
+                        ),
+                    },
+                }
+
+                -- JSON
+                vim.lsp.config.jsonls = {
+                    default_config = {
+                        cmd = { "vscode-json-language-server", "--stdio" },
+                        filetypes = { "json", "jsonc" },
+                        root_dir = util.find_git_ancestor,
+                    },
+                }
+
+                -- SQL
+                vim.lsp.config.sqls = {
+                    default_config = {
+                        cmd = { "sqls" },
+                        filetypes = { "sql", "mysql" },
+                        root_dir = util.root_pattern(".git"),
+                    },
+                    settings = {
+                        sqls = {
+                            connections = {},
                         },
                     },
+                }
 
-                    swap = {
-                        enable = true,
-
-                        swap_next = {
-                            ["<leader>a"] = "@parameter.inner",
+                -- Lua
+                vim.lsp.config.lua_ls = {
+                    default_config = {
+                        cmd = { "lua-language-server" },
+                        filetypes = { "lua" },
+                        root_dir = util.root_pattern(".git", "init.lua"),
+                    },
+                    settings = {
+                        Lua = {
+                            runtime = { version = "LuaJIT" },
+                            diagnostics = { globals = { "vim" } },
+                            workspace = {
+                                library = vim.api.nvim_get_runtime_file("", true),
+                                checkThirdParty = false,
+                            },
+                            telemetry = { enable = false },
                         },
-                        swap_previous = {
-                            ["<leader>A"] = "@parameter.inner",
-                        },
                     },
-                },
+                }
 
-                -- Incremental selection
-                incremental_selection = {
-                    enable = true,
-                    keymaps = {
-                        init_selection = "gnn",
-                        node_incremental = "grn",
-                        node_decremental = "grm",
-                    },
-                },
-            })
-        end,
-    },
-
-    -- ============================================================
-    -- LSP CONFIGURATION (0.11+ Native API Only)
-    -- ============================================================
-    {
-        "neovim/nvim-lspconfig",
-        config = function()
-            local util = require("lspconfig.util")
-
-            -- Python: Pyright (type checking)
-            vim.lsp.config.pyright = {
-                default_config = {
-                    cmd = { "pyright-langserver", "--stdio" },
-                    filetypes = { "python" },
-                    root_dir = util.root_pattern(
-                        "pyproject.toml",
-                        "setup.py",
-                        ".git"
-                    ),
-                },
-            }
-
-            -- Python: Ruff (linting/formatting - new native server)
-            vim.lsp.config.ruff = {
-                default_config = {
-                    cmd = { "ruff", "server", "--preview" },
-                    filetypes = { "python" },
-                    root_dir = util.root_pattern(
-                        "pyproject.toml",
-                        "ruff.toml",
-                        ".git"
-                    ),
-                },
-            }
-
-            -- JSON
-            vim.lsp.config.jsonls = {
-                default_config = {
-                    cmd = { "vscode-json-language-server", "--stdio" },
-                    filetypes = { "json", "jsonc" },
-                    root_dir = util.find_git_ancestor,
-                },
-            }
-
-            -- SQL
-            vim.lsp.config.sqls = {
-                default_config = {
-                    cmd = { "sqls" },
-                    filetypes = { "sql", "mysql" },
-                    root_dir = util.root_pattern(".git"),
-                },
-                settings = {
-                    sqls = {
-                        connections = {},
-                    },
-                },
-            }
-
-            -- Lua
-            vim.lsp.config.lua_ls = {
-                default_config = {
-                    cmd = { "lua-language-server" },
-                    filetypes = { "lua" },
-                    root_dir = util.root_pattern(".git", "init.lua"),
-                },
-                settings = {
-                    Lua = {
-                        runtime = { version = "LuaJIT" },
-                        diagnostics = { globals = { "vim" } },
-                        workspace = {
-                            library = vim.api.nvim_get_runtime_file("", true),
-                            checkThirdParty = false,
-                        },
-                        telemetry = { enable = false },
-                    },
-                },
-            }
-
-            -- Enable all servers
-            vim.lsp.enable("pyright")
-            vim.lsp.enable("ruff")
-            vim.lsp.enable("jsonls")
-            vim.lsp.enable("sqls")
-            vim.lsp.enable("lua_ls")
-        end,
-    },
-
+                -- Enable all servers
+                vim.lsp.enable("pyright")
+                vim.lsp.enable("ruff")
+                vim.lsp.enable("jsonls")
+                vim.lsp.enable("sqls")
+                vim.lsp.enable("lua_ls")
+            end,
+        },
     -- ============================================================
     -- AUTOCOMPLETION
     -- ============================================================
@@ -282,10 +281,14 @@ require("lazy").setup({
             "hrsh7th/cmp-nvim-lsp",
             "hrsh7th/cmp-buffer",
             "hrsh7th/cmp-path",
+            "hrsh7th/cmp-nvim-lua",
+            "hrsh7th/cmp-cmdline",
+            "hrsh7th/cmp-nvim-lsp-signature-help",
         },
         config = function()
             local cmp = require("cmp")
 
+            -- Main completion setup
             cmp.setup({
                 mapping = cmp.mapping.preset.insert({
                     ["<C-Space>"] = cmp.mapping.complete(),
@@ -294,8 +297,29 @@ require("lazy").setup({
                 }),
                 sources = {
                     { name = "nvim_lsp" },
+                    { name = "nvim_lsp_signature_help" },
+                    { name = "nvim_lua" },
                     { name = "path" },
+                    { name = "buffer" },
                 },
+            })
+
+            -- Cmdline completion for '/'
+            cmp.setup.cmdline("/", {
+                mapping = cmp.mapping.preset.cmdline(),
+                sources = {
+                    { name = "buffer" },
+                },
+            })
+
+            -- Cmdline completion for ':'
+            cmp.setup.cmdline(":", {
+                mapping = cmp.mapping.preset.cmdline(),
+                sources = cmp.config.sources({
+                    { name = "path" },
+                }, {
+                    { name = "cmdline" },
+                }),
             })
         end,
     },
