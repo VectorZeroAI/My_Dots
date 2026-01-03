@@ -78,7 +78,7 @@ vim.opt.rtp:prepend(lazypath)
                 { '<leader>sg', '<cmd>Telescope live_grep<cr>', desc = '[S]earch by [G]rep' },
                 
                 -- Override / to use Telescope
-                { '/', '<cmd>Telescope current_buffer_fuzzy_find<cr>', desc = 'Search buffer' },
+                { '<leader>/', '<cmd>Telescope current_buffer_fuzzy_find<cr>', desc = 'Search buffer' },
             },
             config = function()
                 require('telescope').setup({
