@@ -356,17 +356,9 @@ vim.opt.rtp:prepend(lazypath)
     },
 })
 
-vim.keymap.set("n", "<leader>f", function()
-    vim.lsp.buf.code_action({
-        context = { only = { "source.fixAll" } },
-        apply = true,
-    })
-    vim.lsp.buf.format()
-end, { desc = "Fix + format" })
-
 vim.keymap.set(
   { "n", "v" },
-  "<leader>ca",
+  "<leader>f",
   vim.lsp.buf.code_action,
   { desc = "Code actions" }
 )
