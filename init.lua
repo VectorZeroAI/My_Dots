@@ -356,3 +356,4 @@ vim.opt.rtp:prepend(lazypath)
     },
 })
 
+vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
