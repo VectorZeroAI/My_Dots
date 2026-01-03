@@ -17,6 +17,10 @@ vim.opt.tabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.softtabstop = 4
 
+-- leader key
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
+
 -- Show diagnostics on hover
 vim.opt.updatetime = 250
 vim.api.nvim_create_autocmd("CursorHold", {
