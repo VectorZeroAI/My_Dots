@@ -76,7 +76,7 @@ vim.opt.rtp:prepend(lazypath)
             keys = {
                 { '<leader>sf', '<cmd>Telescope find_files<cr>', desc = '[S]earch [F]iles' },
                 { '<leader>sg', '<cmd>Telescope live_grep<cr>', desc = '[S]earch by [G]rep' },
-                
+
                 -- Override / to use Telescope
                 { '<leader>/', '<cmd>Telescope current_buffer_fuzzy_find<cr>', desc = 'Search buffer' },
             },
@@ -217,9 +217,9 @@ vim.opt.rtp:prepend(lazypath)
           dependencies = { "nvim-lua/plenary.nvim" },
           opts = {
             keywords = {
-              TODO  = { icon = " ", color = "info" },
-              FIXME = { icon = " ", color = "error" },
-              NOTE  = { icon = " ", color = "hint" },
+              TODO  = { icon = " ", color = "info" },
+              FIXME = { icon = " ", color = "error" },
+              NOTE  = { icon = " ", color = "hint" },
             },
           },
         },
@@ -330,54 +330,28 @@ vim.opt.rtp:prepend(lazypath)
             end,
         },
     -- ============================================================
-    -- AUTOCOMPLETION
+    -- AUTOCOMPLETION - BLINK.NVIM
     -- ============================================================
     {
-        "hrsh7th/nvim-cmp",
-        dependencies = {
-            "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-path",
-            "hrsh7th/cmp-nvim-lua",
-            "hrsh7th/cmp-cmdline",
-            "hrsh7th/cmp-nvim-lsp-signature-help",
+        'saghen/blink.cmp',
+        dependencies = 'rafamadriz/friendly-snippets',
+        version = '*',
+        opts = {
+            keymap = { 
+                preset = 'default',
+                ['<C-space>'] = { 'show', 'show_documentation', 'hide_documentation' },
+                ['<CR>'] = { 'accept', 'fallback' },
+            },
+            appearance = {
+                use_nvim_cmp_as_default = true,
+                nerd_font_variant = 'mono'
+            },
+            sources = {
+                default = { 'lsp', 'path' },
+            },
+            signature = { enabled = true }
         },
-        config = function()
-            local cmp = require("cmp")
-
-            -- Main completion setup
-            cmp.setup({
-                mapping = cmp.mapping.preset.insert({
-                    ["<C-Space>"] = cmp.mapping.complete(),
-                    ["<CR>"] = cmp.mapping.confirm({ select = true }),
-                    ["<C-e>"] = cmp.mapping.abort(),
-                }),
-                sources = {
-                    { name = "nvim_lsp" },
-                    { name = "nvim_lsp_signature_help" },
-                    { name = "nvim_lua" },
-                    { name = "path" },
-                },
-            })
-
-            -- Cmdline completion for '/'
-            cmp.setup.cmdline("/", {
-                mapping = cmp.mapping.preset.cmdline(),
-                sources = {
-                    { name = "buffer" },
-                },
-            })
-
-            -- Cmdline completion for ':'
-            cmp.setup.cmdline(":", {
-                mapping = cmp.mapping.preset.cmdline(),
-                sources = cmp.config.sources({
-                    { name = "path" },
-                }, {
-                    { name = "cmdline" },
-                }),
-            })
-        end,
+        opts_extend = { "sources.default" }
     },
 })
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>')
