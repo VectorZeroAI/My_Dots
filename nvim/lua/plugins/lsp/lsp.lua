@@ -1,4 +1,4 @@
-{
+return {
     "neovim/nvim-lspconfig",
     config = function()
         local util = require("lspconfig.util")

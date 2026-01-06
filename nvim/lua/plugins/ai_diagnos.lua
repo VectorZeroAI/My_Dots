@@ -1,4 +1,4 @@
-{
+return {
     "VectorZeroAI/ai_diagnos.nvim",
     config = function()
         require("ai_diagnos").setup({

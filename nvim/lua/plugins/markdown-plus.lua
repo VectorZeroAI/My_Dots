@@ -1,4 +1,4 @@
-{
+return {
     "yousefhadder/markdown-plus.nvim",
     ft = { "markdown", "text", "txt" },
     config = function()

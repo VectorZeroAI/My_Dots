@@ -1,7 +1,7 @@
 -- configuration of treesitter plugin. 
 -- one of thevtemplate configuratilns. 
 -- must be required from the lazy.lua file.
-{
+return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
     dependencies = {

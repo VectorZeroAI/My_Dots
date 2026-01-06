@@ -1,5 +1,5 @@
 -- nord theme plugin setup. 
-{
+return {
     "shaunsingh/nord.nvim",
     priority = 1000,
     config = function()
