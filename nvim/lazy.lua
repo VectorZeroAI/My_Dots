@@ -1,0 +1,1 @@
+-- lazy.lua file. is the lazy.nvim bootstrap and the requiremennt of all the plugins. 

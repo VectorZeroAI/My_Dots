@@ -1,0 +1,3 @@
+-- configuration of treesitter plugin. 
+-- one of thevtemplate configuratilns. 
+-- must be required from the lazy.lua file.
