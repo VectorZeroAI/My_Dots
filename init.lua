@@ -273,10 +273,10 @@ vim.opt.rtp:prepend(lazypath)
                         cmd = { "sqls" },
                         filetypes = { "sql", "mysql" },
                         root_dir = util.root_pattern(".git"),
-                    },
-                    settings = {
-                        sqls = {
-                            connections = {},
+                        settings = {
+                            sqls = {
+                                connections = {},
+                            },
                         },
                     },
                 }
