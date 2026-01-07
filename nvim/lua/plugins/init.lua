@@ -8,4 +8,5 @@ return {
     require("plugins.theme"),
     require("plugins.todo_comments"),
     require("plugins.treesitter"),
+    require("plugins.lsp.lsp"),
 }
