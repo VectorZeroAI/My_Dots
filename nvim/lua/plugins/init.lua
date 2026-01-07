@@ -1,9 +1,11 @@
-require("ai_diagnos")
-require("blink")
-require("indent_blankline")
-require("markdown-plus")
-require("neoscroll")
-require("telescope.lua")
-require("theme")
-require("todo_comments")
-require("treesitter")
+return {
+    require("plugins.ai_diagnos"),
+    require("plugins.blink"),
+    require("plugins.indent_blankline"),
+    require("plugins.markdown-plus"),
+    require("plugins.neoscroll"),
+    require("plugins.telescope"),
+    require("plugins.theme"),
+    require("plugins.todo_comments"),
+    require("plugins.treesitter"),
+}

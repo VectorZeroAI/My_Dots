@@ -8,4 +8,4 @@ return {
             NOTE    = { icon = " ", color = "hint" },
         },
     },
-},
+}
