@@ -9,4 +9,5 @@ return {
     require("plugins.todo_comments"),
     require("plugins.treesitter"),
     require("plugins.lsp.lsp"),
+    require("plugins.mason"),
 }
