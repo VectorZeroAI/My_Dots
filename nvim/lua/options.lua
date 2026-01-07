@@ -17,6 +17,9 @@ vim.opt.softtabstop = 4
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
 
+-- scrolloff
+vim.opt.scrolloff = 4
+
 -- Show diagnostics on hover
 vim.opt.updatetime = 250
 vim.api.nvim_create_autocmd("CursorHold", {
