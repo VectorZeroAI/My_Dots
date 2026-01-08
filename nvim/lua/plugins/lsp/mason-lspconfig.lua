@@ -6,7 +6,6 @@ return {
             "sqls",
             "jsonls",
             "gopls",
-            "ruff",
         },
     },
 }
