@@ -29,6 +29,8 @@ vim.keymap.set('n', '<leader>sw', function ()
     telescope.grep_string()
 end, { desc = " [s]earch for [w]ord across everything"})
 
+vim.keymap.set('n', '<leader>/', '<cmd>Telescope current_buffer_fuzzy_find<cr>', { desc = 'Search buffer' })
+
 -------- LSP -----------
 --- The LSP on attach keymap creation
 vim.api.nvim_create_autocmd("LspAttach", {
