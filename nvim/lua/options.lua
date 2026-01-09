@@ -6,6 +6,8 @@ vim.opt.numberwidth = 4
 vim.opt.cursorline = true
 vim.opt.ignorecase = true
 vim.opt.smoothscroll = true
+vim.opt.undofile = true
+vim.opt.termguicolors = true
 
 -- Tabs as 4 spaces
 vim.opt.expandtab = true
@@ -35,3 +37,7 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.opt_local.wrap = true
     end,
 })
+
+-- expolerer options
+
+vim.g.newtrw_banner = 0
