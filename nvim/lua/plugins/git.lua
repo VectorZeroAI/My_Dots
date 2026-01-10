@@ -4,7 +4,7 @@ return {
     -- Git integration UI
     {
         "tpope/vim-fugitive",
-        cmd = { "git", "g" },
+        cmd = { "Git", "G" },
     },
 
     -- Git gutter signs + hunk operations

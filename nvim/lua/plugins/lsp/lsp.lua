@@ -1,4 +1,4 @@
--- mason
+-- lspconfig
 return {
     {
         "neovim/nvim-lspconfig",
@@ -36,7 +36,7 @@ return {
                 default_config = {
                     cmd = { "vscode-json-language-server", "--stdio" },
                     filetypes = { "json", "jsonc" },
-                    root_dir = util.find_git_ancestor,
+                    root_dir = util.root_pattern(".git"),
                 },
             }
 
