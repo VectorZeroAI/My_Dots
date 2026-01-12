@@ -40,4 +40,4 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- expolerer options
 
-vim.g.newtrw_banner = 0
+vim.g.netrw_banner = 0
