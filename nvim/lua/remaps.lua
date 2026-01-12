@@ -69,3 +69,12 @@ vim.keymap.set('i', 'ö', ']', { noremap = true })
 
 vim.keymap.set('i', 'Ü', '(', { noremap = true })
 vim.keymap.set('i', 'ü', ')', { noremap = true })
+
+vim.keymap.set('n', 'Ä', '{', { noremap = true })
+vim.keymap.set('n', 'ä', '}', { noremap = true })
+
+vim.keymap.set('n', 'Ö', '[', { noremap = true })
+vim.keymap.set('n', 'ö', ']', { noremap = true })
+
+vim.keymap.set('n', 'Ü', '(', { noremap = true })
+vim.keymap.set('n', 'ü', ')', { noremap = true })
