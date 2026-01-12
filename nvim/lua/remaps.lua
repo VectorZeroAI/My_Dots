@@ -60,8 +60,12 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end, { desc = " hover do[k]s "})
     end
 })
------------------ git ---------------------
+----- key remaps for speed -------
+vim.keymap.set('i', 'Ä', '{', { noremap = true })
+vim.keymap.set('i', 'ä', '}', { noremap = true })
 
-vim.keymap.set('n', '<leader>go', '<cmd>Git<CR>', {desc = "[g]it [o]pen"})
-vim.keymap.set('n', '<leader>gp', '<cmd>Git push<CR>')
+vim.keymap.set('i', 'Ö', '[', { noremap = true })
+vim.keymap.set('i', 'ö', ']', { noremap = true })
 
+vim.keymap.set('i', 'Ü', '(', { noremap = true })
+vim.keymap.set('i', 'ü', ')', { noremap = true })
