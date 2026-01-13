@@ -61,20 +61,26 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
 })
 ----- key remaps for speed -------
-vim.keymap.set('i', 'Ä', '{', { noremap = true })
-vim.keymap.set('i', 'ä', '}', { noremap = true })
+vim.keymap.set('i', 'ä', '{', { noremap = true })
+vim.keymap.set('i', 'Ä', '}', { noremap = true })
 
-vim.keymap.set('i', 'Ö', '[', { noremap = true })
-vim.keymap.set('i', 'ö', ']', { noremap = true })
+vim.keymap.set('i', 'ö', '[', { noremap = true })
+vim.keymap.set('i', 'Ö', ']', { noremap = true })
 
-vim.keymap.set('i', 'Ü', '(', { noremap = true })
-vim.keymap.set('i', 'ü', ')', { noremap = true })
+vim.keymap.set('i', 'ü', '(', { noremap = true })
+vim.keymap.set('i', 'Ü', ')', { noremap = true })
 
-vim.keymap.set('n', 'Ä', '{', { noremap = true })
-vim.keymap.set('n', 'ä', '}', { noremap = true })
+vim.keymap.set('n', 'ä', '{', { noremap = true })
+vim.keymap.set('n', 'Ä', '}', { noremap = true })
 
-vim.keymap.set('n', 'Ö', '[', { noremap = true })
-vim.keymap.set('n', 'ö', ']', { noremap = true })
+vim.keymap.set('n', 'ö', '[', { noremap = true })
+vim.keymap.set('n', 'Ö', ']', { noremap = true })
 
-vim.keymap.set('n', 'Ü', '(', { noremap = true })
-vim.keymap.set('n', 'ü', ')', { noremap = true })
+vim.keymap.set('n', 'ü', '(', { noremap = true })
+vim.keymap.set('n', 'Ü', ')', { noremap = true })
+
+vim.g.copilot_no_tab_map = true
+vim.keymap.set("i", "<C-Tab>", 'copilot#Accept("\\<CR>")', {
+    expr = true,
+    replace_keycodes = false,
+})
