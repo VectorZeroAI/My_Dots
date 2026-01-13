@@ -80,7 +80,8 @@ vim.keymap.set('n', 'ü', '(', { noremap = true })
 vim.keymap.set('n', 'Ü', ')', { noremap = true })
 
 vim.g.copilot_no_tab_map = true
-vim.keymap.set("i", "<C-Tab>", 'copilot#Accept("\\<CR>")', {
+vim.keymap.set("i", "<C-l>", 'copilot#Accept("\\<CR>")', {
     expr = true,
     replace_keycodes = false,
+    desc = " Accept Copilot suggestion on <C-l> ",
 })
