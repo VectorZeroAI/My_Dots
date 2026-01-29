@@ -40,4 +40,12 @@ vim.api.nvim_create_autocmd("FileType", {
 
 -- expolerer options
 
-vim.g.netrw_banner = 0
+vim.g.newtrw_banner = 0
+
+-- Fixing some bugs with treesitter
+
+vim.api.nvim_create_autocmd("FileType", {
+    callback = function()
+               
+    end,
+})

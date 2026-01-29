@@ -4,13 +4,11 @@
 return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    dependencies = {
-        "nvim-treesitter/nvim-treesitter-textobjects",
-    },
+    Lazy = false,
     opts = {
         ensure_installed = { "python", "lua", "json", "sql", "markdown", "go" },
-
-        highlight = { enable = true },
+        auto_install = true,
+        highlight = { enable = true, additional_vim_regex_highlighting = false },
         indent = { enable = true },
 
         -- Textobjects: structural editing
@@ -70,5 +68,6 @@ return {
                 node_decremental = "grm",
             },
         },
-    }
+    },
+    {"nvim-treesitter/nvim-treesitter-textobjects", lazy = true  },
 }

@@ -61,6 +61,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
 })
 ----- key remaps for speed -------
+
 vim.keymap.set('i', 'ä', '{', { noremap = true })
 vim.keymap.set('i', 'Ä', '}', { noremap = true })
 
@@ -83,5 +84,5 @@ vim.g.copilot_no_tab_map = true
 vim.keymap.set("i", "<C-l>", 'copilot#Accept("\\<CR>")', {
     expr = true,
     replace_keycodes = false,
-    desc = " Accept Copilot suggestion on <C-l> ",
 })
+

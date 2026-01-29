@@ -1,6 +1,12 @@
 -- git integration into neovim
 
 return {
+    -- Git integration UI
+    {
+        "tpope/vim-fugitive",
+        cmd = { "Git", "G" },
+    },
+
     -- Git gutter signs + hunk operations
     {
         "lewis6991/gitsigns.nvim",
@@ -10,8 +16,4 @@ return {
         },
         dependencies = { "nvim-lua/plenary.nvim" },
     },
-    {
-        "NeogitOrg/neogit",
-        cmd = "Neogit",
-    }
 }
