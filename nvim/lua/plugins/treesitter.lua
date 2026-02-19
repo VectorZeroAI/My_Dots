@@ -1,10 +1,11 @@
 -- configuration of treesitter plugin. 
 -- one of thevtemplate configuratilns. 
 -- must be required from the lazy.lua file.
+------ Version 1 (Broken ) ----------
 return {
     "nvim-treesitter/nvim-treesitter",
     build = ":TSUpdate",
-    Lazy = false,
+    lazy = false,
     opts = {
         ensure_installed = { "python", "lua", "json", "sql", "markdown", "go" },
         auto_install = true,
@@ -69,5 +70,54 @@ return {
             },
         },
     },
-    {"nvim-treesitter/nvim-treesitter-textobjects", lazy = true  },
 }
+
+-- Version 2 (Trying to fix )
+
+-- return {
+--     "nvim-treesitter/nvim-treesitter",
+--     build = ":TSUpdate",
+--     lazy = false,
+--     config = function ()
+--         require("nvim-treesitter.config").setup({
+--             ensure_installed = {
+--                 "lua",
+--                 "vim",
+--                 "vimdoc",
+--                 "bash",
+--                 "python",
+--                 "go",
+--             },
+--             highlight = { enable = true },
+--             indent = { enable = true },
+--       })
+--     end,
+-- }
+
+
+-- Version 3 (Try 2)
+-- return {
+--     "nvim-treesitter/nvim-treesitter",
+--     build = ":TSUpdate",
+--     lazy = false,
+--     opts = {
+--     },
+--     config = function ()
+--         require('nvim-treesitter.configs').setup({
+--             ensure_installed = {
+--                 "lua",
+--                 "vim",
+--                 "vimdoc",
+--                 "bash",
+--                 "python",
+--                 "go",
+--             },
+--             highlight = {
+--                 enable = true,
+--             },
+--             indent = {
+--                 enable = true,
+--             },
+--         })
+--     end
+-- }

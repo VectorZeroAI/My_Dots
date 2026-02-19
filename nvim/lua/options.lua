@@ -45,7 +45,9 @@ vim.g.newtrw_banner = 0
 -- Fixing some bugs with treesitter
 
 vim.api.nvim_create_autocmd("FileType", {
+    pattern ={ "python", "go", "sql", "py", },
     callback = function()
-               
+        vim.treesitter.start()
     end,
 })
+

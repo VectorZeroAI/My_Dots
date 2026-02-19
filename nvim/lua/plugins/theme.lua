@@ -12,3 +12,30 @@ return {
         vim.cmd.colorscheme("nord")
     end,
 }
+
+
+-- return { 
+--     "catppuccin/nvim",
+--     name = "catppuccin",
+--     priority = 1000,
+--     config = function()
+--         require("catppuccin").setup({
+--             styles = {
+--                 comments = {},
+--                 conditionals = {},
+--                 loops = {},
+--                 functions = {},
+--                 keywords = {},
+--                 strings = {},
+--                 variables = {},
+--                 numbers = {},
+--                 booleans = {},
+--                 properties = {},
+--                 types = {},
+--                 operators = {},
+--             }
+--         })
+--         vim.cmd.colorscheme("catppuccin")
+--         vim.g.capuchin_disable_italics = true
+--     end
+-- }

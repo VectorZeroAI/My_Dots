@@ -6,13 +6,6 @@ vim.g.maplocalleader = ' '
 ---------- misc -------
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', {desc = "Stop highlighting when pressing Esc, and it has nothing else to do . "})
 
------ inter file movement -------
-
-vim.keymap.set('n', '<S-h>', '<cmd>bn<CR>', {desc = "Go to [b]uffer [n]ext"})
-
-vim.keymap.set('n', '<S-l>', '<cmd>bp<CR>', {desc = "Go to [b]uffer [p]revious"})
-
-vim.keymap.set('n', '<leader>ex', '<cmd>Ex<CR>', {desc = "Open [Ex]plorer"})
 
 ------- telescope ----------
 local telescope = require('telescope.builtin')
@@ -86,3 +79,38 @@ vim.keymap.set("i", "<C-l>", 'copilot#Accept("\\<CR>")', {
     replace_keycodes = false,
 })
 
+-------- Harpoon ---------
+
+local harpoon = require('harpoon')
+
+harpoon:setup()
+
+vim.keymap.set('n', '<S-h>', '<cmd>bn<CR>', {desc = "Go to [b]uffer [n]ext"})
+
+vim.keymap.set('n', '<S-l>', '<cmd>bp<CR>', {desc = "Go to [b]uffer [p]revious"})
+
+vim.keymap.set('n', '<leader>ex', '<cmd>Ex<CR>', {desc = "Open [Ex]plorer"})
+
+vim.keymap.set('n', '<leader>a', function ()
+    harpoon:list():add()
+end, {desc = "add current file to harpoon"})
+
+vim.keymap.set('n', '<leader>1', function ()
+    harpoon:list():select(1)
+end)
+
+vim.keymap.set('n', '<leader>2', function ()
+    harpoon:list():select(2)
+end)
+
+vim.keymap.set('n', '<leader>3', function ()
+    harpoon:list():select(3)
+end)
+
+vim.keymap.set('n', '<leader>4', function ()
+    harpoon:list():select(4)
+end)
+
+vim.api.nvim_create_user_command('Harpoon', function ()
+    harpoon.ui:toggle_quick_menu(harpoon:list())
+end, {})

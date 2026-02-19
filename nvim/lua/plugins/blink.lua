@@ -33,7 +33,7 @@ return {
         sources = {
             default = {
                 "lsp",
-                "snippets", -- 🔥 THIS is what you were missing
+                "snippets",
                 "path",
             },
         },
