@@ -39,11 +39,9 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 -- expolerer options
-
 vim.g.newtrw_banner = 0
 
 -- Fixing some bugs with treesitter
-
 vim.api.nvim_create_autocmd("FileType", {
     pattern ={ "python", "go", "sql", "py", },
     callback = function()
@@ -51,3 +49,10 @@ vim.api.nvim_create_autocmd("FileType", {
     end,
 })
 
+-- Enable Tree-sitter folding
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+
+-- Start with folds open
+vim.opt.foldlevel = 99
+vim.opt.foldenable = true

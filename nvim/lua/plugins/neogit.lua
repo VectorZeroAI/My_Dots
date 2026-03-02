@@ -2,6 +2,7 @@ return {
     {
         "NeogitOrg/neogit",
         cmd = "Neogit",
+        event = "BufReadPost",
         dependencies = {
             "nvim-lua/plenary.nvim",
             "sindrets/diffview.nvim",

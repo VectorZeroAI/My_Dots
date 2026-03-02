@@ -114,3 +114,26 @@ end)
 vim.api.nvim_create_user_command('Harpoon', function ()
     harpoon.ui:toggle_quick_menu(harpoon:list())
 end, {})
+vim.api.nvim_create_user_command('ClearHarpoon', function ()
+    harpoon:list():clear()
+end, {})
+
+
+
+------ folds -----------
+
+-- Smart fold toggle on <CR>
+vim.keymap.set("n", "<CR>", function()
+  local line = vim.fn.line(".")
+  if vim.fn.foldlevel(line) > 0 then
+    vim.cmd("normal! za")
+  else
+    vim.cmd("normal! <CR>")
+  end
+end, { silent = true })
+
+
+----- Quick fix list ------
+
+vim.keymap.set('n', '<leader>j', ':cn', {desc="Move down through quickfix list"})
+vim.keymap.set('n', '<leader>k', ':cp', {desc="Move up through quickfix list"})
