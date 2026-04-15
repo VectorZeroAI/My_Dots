@@ -6,6 +6,15 @@ vim.g.maplocalleader = ' '
 ---------- misc -------
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', {desc = "Stop highlighting when pressing Esc, and it has nothing else to do . "})
 
+vim.keymap.set({"n", "v"}, "<leader>d", '"_d', { noremap = true })
+
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { noremap = true })
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { noremap = true })
+
+vim.keymap.set("n", "p", "]p", {desc="Remapped reindent paste to normal paste"})
+vim.keymap.set("n", "<leader>p", "p", {desc="Remapped normal paste to leader paste."})
+
+vim.keymap.set("n", "cc", ":cclose<CR>", {desc="[c][c]lose command"})
 
 ------- telescope ----------
 local telescope = require('telescope.builtin')
@@ -19,7 +28,7 @@ vim.keymap.set('n', '<leader>saf', function ()
 end, { desc = "[S]earch [a]ll [f]iles" })
 
 vim.keymap.set('n', '<leader>sw', function ()
-    telescope.grep_string()
+    telescope.grep_string({ search = vim.fn.input("Grep > ") })
 end, { desc = " [s]earch for [w]ord across everything"})
 
 vim.keymap.set('n', '<leader>/', '<cmd>Telescope current_buffer_fuzzy_find<cr>', { desc = 'Search buffer' })
@@ -40,7 +49,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
             vim.lsp.buf.rename()
         end, {desc = "[r]e[n]ame the thing"})
 
-        vim.keymap.set('n', '<leader>ca', function ()
+        vim.keymap.set({'n', 'v'}, '<leader>ca', function ()
             vim.lsp.buf.code_action()
         end, {desc = "[c]ode [a]ctions"})
 
@@ -111,9 +120,14 @@ vim.keymap.set('n', '<leader>4', function ()
     harpoon:list():select(4)
 end)
 
+vim.keymap.set('n', '<leader>5', function ()
+    harpoon:list():select(5)
+end)
+
 vim.api.nvim_create_user_command('Harpoon', function ()
     harpoon.ui:toggle_quick_menu(harpoon:list())
 end, {})
+
 vim.api.nvim_create_user_command('ClearHarpoon', function ()
     harpoon:list():clear()
 end, {})
@@ -135,5 +149,5 @@ end, { silent = true })
 
 ----- Quick fix list ------
 
-vim.keymap.set('n', '<leader>j', ':cn', {desc="Move down through quickfix list"})
-vim.keymap.set('n', '<leader>k', ':cp', {desc="Move up through quickfix list"})
+vim.keymap.set('n', '<leader>j', ':cn<CR>', {desc="Move down through quickfix list"})
+vim.keymap.set('n', '<leader>k', ':cp<CR>', {desc="Move up through quickfix list"})

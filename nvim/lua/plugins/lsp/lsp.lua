@@ -93,13 +93,44 @@ return {
                 },
             }
 
+            -- Python: pylsp + rope (refactoring)
+            vim.lsp.config.pylsp = {
+                default_config = {
+                    cmd = { "pylsp" },
+                    filetypes = { "python" },
+                    root_dir = util.root_pattern(
+                        "pyproject.toml",
+                        "setup.py",
+                        ".git"
+                    ),
+                    settings = {
+                        pylsp = {
+                            plugins = {
+                                pylsp_rope = { enabled = true },
+                                pyflakes = { enabled = false },
+                                pycodestyle = { enabled = false },
+                                autopep8 = { enabled = false },
+                                yapf = { enabled = false },
+                                mccabe = { enabled = false },
+                                pylsp_mypy = { enabled = false },
+                                pylsp_black = { enabled = false },
+                                pylsp_isort = { enabled = false },
+                            },
+                        },
+                    },
+                },
+            }
+
             -- Enable all servers
             vim.lsp.enable("pyright")
+            vim.lsp.enable("pylsp")
             vim.lsp.enable("ruff")
             vim.lsp.enable("jsonls")
             vim.lsp.enable("sqls")
             vim.lsp.enable("lua_ls")
             vim.lsp.enable("gopls")
+            vim.lsp.enable("html")
         end,
     },
 }
+

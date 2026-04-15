@@ -1,15 +1,3 @@
--- return {
---     "VectorZeroAI/ai_diagnos.nvim",
---     config = function()
---         require("ai_diagnos").setup({
---             api_key = "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",
---             model = "tngtech/deepseek-r1t2-chimera:free",
---             timeout_ms = 9999999,
---         })
---     end,
--- }
-
-
 return {
     "VectorZeroAI/ai_diagnos.nvim",
     branch = "Update_Rewrite_V1",
@@ -17,7 +5,7 @@ return {
         require("ai_diagnos").setup({
             api_key_openrouter = "",
             debounce_ms = 7000,
-            model_openrouter = "",
+            model_openrouter = "qwen/qwen3-next-80b-a3b-instruct:free",
             timeout = 9999,
             api_key_gemini = "",
             api_key_groq = "",
@@ -30,4 +18,7 @@ return {
             api_key_huggingface = ""
         })
     end,
+    build = function ()
+        require("ai_diagnos").build(true, false)
+    end
 }
