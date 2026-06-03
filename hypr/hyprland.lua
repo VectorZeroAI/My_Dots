@@ -227,8 +227,11 @@ hl.bind("XF86AudioPause", hl.dsp.exec_cmd("playerctl play-pause"))
 hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"))
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"))
 
--- Window rules (legacy windowrule and windowrulev2 in the old syntax).
 -- See: https://wiki.hypr.land/Configuring/Basics/Window-Rules/
+--
+-- ----------------
+-- WINDOW RULES ---
+-- ----------------
 hl.window_rule({
     name = "smart_gaps",
     match = { workspace = "w[1]" },   -- Matches workspace 1
@@ -237,12 +240,19 @@ hl.window_rule({
 })
 
 hl.window_rule({
-    name = "browser_fullscreen",
-    match = { class = "vivaldi-stable" },
-    fullscreen = true,
-    border_size = 0
+    name="kitty start width",
+    match = { class = "kitty" },
+    scrolling_width = 0.5
 })
 
 hl.window_rule({
-    name="kitty start widt"
+    name = "vivaldi start width",
+    match = { class = "vivaldi-stable" },
+    scrolling_width = 1
+})
+
+hl.window_rule({
+    name = "thunar float",
+    match = { class = "thunar" },
+    float = true
 })
