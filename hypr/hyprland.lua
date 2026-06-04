@@ -74,6 +74,7 @@ hl.config({
         border_size = 2,
         col = {
             active_border = "rgba(2ABCFFff)",
+            -- active_border = { colors= { "rgba(31E53Fff)", "rgba(2ABCFFff)" }, angle=20 },
             inactive_border = "rgba(595959aa)"
         },
         resize_on_border = false,
@@ -195,7 +196,7 @@ hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd("kitty"))
 hl.bind(mainMod .. " + C", hl.dsp.window.close())
 hl.bind(mainMod .. " + M", hl.dsp.exit())
 hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
-hl.bind(mainMod .. " + V", hl.dsp.window.float({action="toggle", window=1}))
+hl.bind(mainMod .. " + V", hl.dsp.window.float({action="toggle", window="activewindow"}))
 hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("wofi --show drun"))
 hl.bind("SUPER + X", hl.dsp.exec_cmd("wofi --show run"))
 hl.bind("SUPER + S", hl.dsp.exec_cmd("vivaldi"))
@@ -248,11 +249,21 @@ hl.window_rule({
 hl.window_rule({
     name = "vivaldi start width",
     match = { class = "vivaldi-stable" },
-    scrolling_width = 1
+    scrolling_width = 1,
+    fullscreen = true
 })
 
 hl.window_rule({
-    name = "thunar float",
-    match = { class = "thunar" },
-    float = true
+    name = "Make libreoffice fullscreen",
+    match = { class = "soffice" },
+    fullscreen = true
+})
+
+hl.window_rule({
+    name = "make open float",
+    match = { title = "Open" },
+    float = true,
+    size = "(monitor_w*0.5) (monitor_h*0.5)",
+    fullscreen_state = 0,
+    center = true
 })
