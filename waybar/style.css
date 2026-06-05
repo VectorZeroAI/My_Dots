@@ -5,7 +5,7 @@
     border: 2px solid #4899B5;
     border-radius: 0px;
     padding: 2px 8px;
-    margin: 2px 2px;
+    margin: 2px 1px;
 }
 
 * {
@@ -56,9 +56,6 @@ button:hover {
 }
 
 /* you can set a style on hover for any module like this */
-#pulseaudio:hover {
-    background-color: #a37800;
-}
 
 #workspaces button {
     padding: 0 5px;
@@ -200,6 +197,7 @@ label:focus {
     background-color: #f53c3c;
 }
 
+/*
 #pulseaudio {
     background-color: #f1c40f;
     color: #000000;
@@ -224,6 +222,7 @@ label:focus {
     color: #2a5c45;
     min-width: 100px;
 }
+*/
 
 #custom-media.custom-spotify {
     background-color: #66cc99;

@@ -1,4 +1,3 @@
-// waybar config
 // -*- mode: jsonc -*-
 {
     "spacing": 1, // Gaps between modules (4px)
@@ -13,6 +12,7 @@
     	"hyprland/workspaces"
     ],
     "modules-right": [
+        "pulseaudio",
         "network",
         "backlight",
         "clock"
@@ -134,7 +134,7 @@
         "format-alt": "{ifname}: {ipaddr}/{cidr}"
     },
     "pulseaudio": {
-        // "scroll-step": 1, // %, can be a float
+        "scroll-step": 1, // %, can be a float
         "format": "{volume}% {icon} {format_source}",
         "format-bluetooth": "{volume}% {icon} {format_source}",
         "format-bluetooth-muted": " {icon} {format_source}",
