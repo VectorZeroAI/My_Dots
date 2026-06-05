@@ -267,3 +267,12 @@ hl.window_rule({
     fullscreen_state = 0,
     center = true
 })
+
+hl.window_rule({
+    name = "make pavucontrol float",
+    match = { class = "org.pulseaudio.pavucontrol" },
+    float = true,
+    size = "(monitor_w*0.5) (monitor_h*0.5)",
+    fullscreen_state = 0,
+    center = true
+})
