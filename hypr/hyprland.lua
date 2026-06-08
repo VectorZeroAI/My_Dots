@@ -77,7 +77,7 @@ hl.config({
             -- active_border = { colors= { "rgba(31E53Fff)", "rgba(2ABCFFff)" }, angle=20 },
             inactive_border = "rgba(595959aa)"
         },
-        resize_on_border = false,
+        resize_on_border = true, -- NOTE: Set back to false after update
         allow_tearing = false,
         layout = "scrolling"
     },
@@ -87,17 +87,18 @@ hl.config({
     decoration = {
         active_opacity = 1.0,
         inactive_opacity = 0.7,
-        shadow = {
-            enabled = false,
-            range = 9,
-            render_power = 11,
-            color = "rgba(1a1a1aee)"
-        },
         blur = {
             enabled = true,
             size = 3,
             passes = 1,
-            vibrancy = 0.6
+            vibrancy = 0.7,
+            noise = 0
+        },
+        glow = {
+            enabled = false,
+            range = 9,
+            render_power = 4,
+            color = "rgba(2EBBFFaf)"
         }
     },
 
@@ -218,7 +219,7 @@ end
 -- Multimedia keys (volume, brightness, media controls).
 -- Using `{ repeating = true }` for press-and-hold on volume up.
 hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), { repeating = true })
-hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), { locked = true })
+hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"), { repeating = true })
 hl.bind("XF86AudioMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"))
 hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"))
 hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl -e4 -n2 set 5%+"))
