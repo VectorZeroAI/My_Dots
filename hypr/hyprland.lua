@@ -40,7 +40,7 @@ local menu = "wofi"
 --
 hl.on("hyprland.start", function()
     hl.exec_cmd("waybar")
-    hl.exec_cmd("swaybg -i ~/Downloads/Wallpaper2.png")
+    hl.exec_cmd("swaybg -i ~/Downloads/Wallpaper3.png")
     hl.exec_cmd("vivaldi", { workspace= "2 silent"})
 end)
 
@@ -213,8 +213,8 @@ for i = 1, 9 do
 end
 
 -- Mouse bindings for moving and resizing windows.
--- hl.bind(mainMod, "mouse:272", hl.dsp.window.drag()) NOTE : this will work in the next release, my current version doesnt yet have this.
--- hl.bind(mainMod, "mouse:273", hl.dsp.window.resize())
+hl.bind(mainMod .. " + " .. "mouse:272", hl.dsp.window.drag(), { mouse = true })
+hl.bind(mainMod .. " + " .. "mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Multimedia keys (volume, brightness, media controls).
 -- Using `{ repeating = true }` for press-and-hold on volume up.
@@ -254,26 +254,21 @@ hl.window_rule({
     fullscreen = true
 })
 
+
 hl.window_rule({
     name = "Make libreoffice fullscreen",
     match = { class = "soffice" },
     fullscreen = true
 })
 
-hl.window_rule({
-    name = "make open float",
-    match = { title = "Open" },
-    float = true,
-    size = "(monitor_w*0.5) (monitor_h*0.5)",
-    fullscreen_state = 0,
-    center = true
-})
+local matches_list = {{title = "Open"}, {title="Open Files"}, {class="org.pulseaudio.pavucontrol"}, {modal=true}}
 
-hl.window_rule({
-    name = "make pavucontrol float",
-    match = { class = "org.pulseaudio.pavucontrol" },
-    float = true,
-    size = "(monitor_w*0.5) (monitor_h*0.5)",
-    fullscreen_state = 0,
-    center = true
-})
+for _, value in ipairs(matches_list) do
+    hl.window_rule({
+        match = value,
+        float = true,
+        size = "(monitor_w*0.5) (monitor_h*0.5)",
+        fullscreen_state = 0,
+        center = true
+    })
+end
