@@ -77,7 +77,7 @@ hl.config({
             -- active_border = { colors= { "rgba(31E53Fff)", "rgba(2ABCFFff)" }, angle=20 },
             inactive_border = "rgba(595959aa)"
         },
-        resize_on_border = true, -- NOTE: Set back to false after update
+        resize_on_border = false,
         allow_tearing = false,
         layout = "scrolling"
     },
