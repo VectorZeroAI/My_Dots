@@ -10,7 +10,6 @@ return {
                 default = {
                       "class",
                       "function",
-                      "method",
                       "function_definition",
                       "class_definition",
                 },
