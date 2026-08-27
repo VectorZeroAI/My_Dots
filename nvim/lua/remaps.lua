@@ -64,23 +64,23 @@ vim.api.nvim_create_autocmd("LspAttach", {
 })
 ----- key remaps for speed -------
 
-vim.keymap.set('i', 'ä', '{', { noremap = true })
-vim.keymap.set('i', 'Ä', '}', { noremap = true })
-
-vim.keymap.set('i', 'ö', '[', { noremap = true })
-vim.keymap.set('i', 'Ö', ']', { noremap = true })
-
-vim.keymap.set('i', 'ü', '(', { noremap = true })
-vim.keymap.set('i', 'Ü', ')', { noremap = true })
-
-vim.keymap.set('n', 'ä', '{', { noremap = true })
-vim.keymap.set('n', 'Ä', '}', { noremap = true })
-
-vim.keymap.set('n', 'ö', '[', { noremap = true })
-vim.keymap.set('n', 'Ö', ']', { noremap = true })
-
-vim.keymap.set('n', 'ü', '(', { noremap = true })
-vim.keymap.set('n', 'Ü', ')', { noremap = true })
+-- vim.keymap.set('i', 'ä', '{', { noremap = true })
+-- vim.keymap.set('i', 'Ä', '}', { noremap = true })
+-- 
+-- vim.keymap.set('i', 'ö', '[', { noremap = true })
+-- vim.keymap.set('i', 'Ö', ']', { noremap = true })
+-- 
+-- vim.keymap.set('i', 'ü', '(', { noremap = true })
+-- vim.keymap.set('i', 'Ü', ')', { noremap = true })
+-- 
+-- vim.keymap.set('n', 'ä', '{', { noremap = true })
+-- vim.keymap.set('n', 'Ä', '}', { noremap = true })
+-- 
+-- vim.keymap.set('n', 'ö', '[', { noremap = true })
+-- vim.keymap.set('n', 'Ö', ']', { noremap = true })
+-- 
+-- vim.keymap.set('n', 'ü', '(', { noremap = true })
+-- vim.keymap.set('n', 'Ü', ')', { noremap = true })
 
 vim.g.copilot_no_tab_map = true
 vim.keymap.set("i", "<C-l>", 'copilot#Accept("\\<CR>")', {
@@ -132,6 +132,8 @@ vim.api.nvim_create_user_command('ClearHarpoon', function ()
     harpoon:list():clear()
 end, {})
 
+vim.keymap.set("n", "<leader>H", ":Harpoon<CR>", {desc="Faster way to open Harpoon"})
+
 
 
 ------ folds -----------
@@ -151,3 +153,7 @@ end, { silent = true })
 
 vim.keymap.set('n', '<leader>j', ':cn<CR>', {desc="Move down through quickfix list"})
 vim.keymap.set('n', '<leader>k', ':cp<CR>', {desc="Move up through quickfix list"})
+
+----- Neogit -------
+
+vim.keymap.set('n', '<leader>gn', ':Neogit<CR>', {desc="Open Neogit window shorter keybind."})
