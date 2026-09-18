@@ -40,7 +40,7 @@ local menu = "wofi"
 --
 hl.on("hyprland.start", function()
     hl.exec_cmd("waybar")
-    hl.exec_cmd("swaybg -i ~/Downloads/Wallpaper3.png")
+    hl.exec_cmd("swaybg -i ~/wallpapers-main/Wallpaper3.png")
     hl.exec_cmd("vivaldi", { workspace= "2 silent"})
 end)
 
@@ -119,9 +119,8 @@ hl.config({
     }
 })
 
--- Animation curves and styles.
--- See: https://wiki.hypr.land/Configuring/Advanced-and-Cool/Animations/
 
+-- Default curves and animations, see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Animations/
 hl.curve("easeOutQuint",   { type = "bezier", points = { {0.23, 1},    {0.32, 1}    } })
 hl.curve("easeInOutCubic", { type = "bezier", points = { {0.65, 0.05}, {0.36, 1}    } })
 hl.curve("linear",         { type = "bezier", points = { {0, 0},       {1, 1}       } })
@@ -129,7 +128,7 @@ hl.curve("almostLinear",   { type = "bezier", points = { {0.5, 0.5},   {0.75, 1}
 hl.curve("quick",          { type = "bezier", points = { {0.15, 0},    {0.1, 1}     } })
 
 -- Default springs
-hl.curve("easy",           { type = "spring", mass = 1, stiffness = 71.2633, dampening = 15.8273644 })
+hl.curve("easy",           { type = "spring", mass = 1, stiffness = 238.1191, dampening = 24.21279333 })
 
 hl.animation({ leaf = "global",        enabled = true,  speed = 10,   bezier = "default" })
 hl.animation({ leaf = "border",        enabled = true,  speed = 5.39, bezier = "easeOutQuint" })
@@ -202,6 +201,7 @@ hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("wofi --show drun"))
 hl.bind("SUPER + X", hl.dsp.exec_cmd("wofi --show run"))
 hl.bind("SUPER + S", hl.dsp.exec_cmd("vivaldi"))
 hl.bind("SUPER + F", hl.dsp.window.fullscreen({"fullscreen", "toggle", 1}))
+hl.bind("SUPER + D", hl.dsp.exec_cmd("hyprlock"))
 
 -- Move focus between windows (like Vim keys).
 hl.bind("SUPER + l", hl.dsp.focus({direction="right"}))
@@ -236,8 +236,7 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"))
 -- ----------------
 hl.window_rule({
     name = "smart_gaps",
-    match = { workspace = "w[1]" },   -- Matches workspace 1
-    maximize = true,
+    match = { workspace = "w[1]" },
     border_size = 0
 })
 
@@ -261,7 +260,12 @@ hl.window_rule({
     fullscreen = true
 })
 
-local matches_list = {{title = "Open"}, {title="Open Files"}, {class="org.pulseaudio.pavucontrol"}, {modal=true}}
+local matches_list = {
+    {title = "Open"},
+    {title = "Open Files"},
+    {class = "org.pulseaudio.pavucontrol"},
+    {modal = true}
+}
 
 for _, value in ipairs(matches_list) do
     hl.window_rule({
