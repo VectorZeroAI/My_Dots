@@ -296,7 +296,7 @@ if hl.plugin.dynamic_cursors then
 
     -- minimum angle difference in degrees after which the shape is changed
     -- smaller values are smoother, but more expensive for hw cursors
-    threshold = 2,
+    threshold = 1,
 
     -- for mode = "rotate"
     rotate = {
@@ -361,7 +361,7 @@ if hl.plugin.dynamic_cursors then
 
         -- controls how soon a shake is detected
         -- lower values mean sooner
-        threshold = 6.0,
+        threshold = 5.0,
 
         -- magnification level immediately after shake start
         base = 4.0,
@@ -375,10 +375,10 @@ if hl.plugin.dynamic_cursors then
         limit = 0.0,
 
         -- time in milliseconds the cursor will stay magnified after a shake has ended
-        timeout = 2000,
+        timeout = 300,
 
         -- show cursor behaviour `tilt`, `rotate`, etc. while shaking
-        effects = false,
+        effects = true,
 
         -- enable ipc events for shake
         -- see the `ipc` section below
