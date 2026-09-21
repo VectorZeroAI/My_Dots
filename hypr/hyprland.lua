@@ -28,7 +28,7 @@ hl.monitor({
 -- ### MY PROGRAMS ###
 -------------------
 -- You can store your favorite programs in variables for later use.
-local terminal = "wezterm"
+local terminal = "kitty"
 local fileManager = "thunar"
 local menu = "wofi"
 
@@ -187,17 +187,14 @@ hl.device({
 -------------------
 -- ## KEYBINDINGS ###
 -------------------
--- Main mod key.
--- See: https://wiki.hypr.land/Configuring/Basics/Binds/
-local mainMod = "SUPER"
 
 -- Application shortcuts.
-hl.bind(mainMod .. " + Q", hl.dsp.exec_cmd("kitty"))
-hl.bind(mainMod .. " + C", hl.dsp.window.close())
-hl.bind(mainMod .. " + M", hl.dsp.exit())
-hl.bind(mainMod .. " + E", hl.dsp.exec_cmd(fileManager))
-hl.bind(mainMod .. " + V", hl.dsp.window.float({action="toggle", window="activewindow"}))
-hl.bind(mainMod .. " + R", hl.dsp.exec_cmd("wofi --show drun"))
+hl.bind("SUPER + Q", hl.dsp.exec_cmd("kitty"))
+hl.bind("SUPER + C", hl.dsp.window.close())
+hl.bind("SUPER + M", hl.dsp.exit())
+hl.bind("SUPER + E", hl.dsp.exec_cmd(fileManager))
+hl.bind("SUPER + V", hl.dsp.window.float({action="toggle", window="activewindow"}))
+hl.bind("SUPER + R", hl.dsp.exec_cmd("wofi --show drun"))
 hl.bind("SUPER + X", hl.dsp.exec_cmd("wofi --show run"))
 hl.bind("SUPER + S", hl.dsp.exec_cmd("vivaldi"))
 hl.bind("SUPER + F", hl.dsp.window.fullscreen({"fullscreen", "toggle", 1}))
@@ -207,14 +204,19 @@ hl.bind("SUPER + D", hl.dsp.exec_cmd("hyprlock"))
 hl.bind("SUPER + l", hl.dsp.focus({direction="right"}))
 hl.bind("SUPER + h", hl.dsp.focus({direction="left"}))
 
+-- TODO : Try to use submaps to make more vim like navigation
+-- Like making navigation in workspace VS cross workspace by a submap as well as application activation through a submap as well
+-- Modal navigation !
+
 -- Switch to specific workspaces.
 for i = 1, 9 do
-    hl.bind(mainMod .. " + " .. i, hl.dsp.focus({workspace=i}))
+    hl.bind("SUPER + " .. i, hl.dsp.focus({workspace=i}))
+    hl.bind("SUPER + SHIFT + " .. i, hl.dsp.window.move({workspace=i, follow = true}))
 end
 
 -- Mouse bindings for moving and resizing windows.
-hl.bind(mainMod .. " + " .. "mouse:272", hl.dsp.window.drag(), { mouse = true })
-hl.bind(mainMod .. " + " .. "mouse:273", hl.dsp.window.resize(), { mouse = true })
+hl.bind("SUPER + " .. "mouse:272", hl.dsp.window.drag(), { mouse = true })
+hl.bind("SUPER + " .. "mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Multimedia keys (volume, brightness, media controls).
 -- Using `{ repeating = true }` for press-and-hold on volume up.
@@ -282,132 +284,129 @@ end
 ---------------
 
 if hl.plugin.dynamic_cursors then
-    hl.config { plugin = { dynamic_cursors = {
+    hl.config { 
+        plugin = { 
+            dynamic_cursors = {
+                enabled = true,
 
-    -- enables the plugin
-    enabled = true,
+                -- sets the cursor behaviour, supports these values:
+                -- tilt    - tilt the cursor based on x-velocity
+                -- rotate  - rotate the cursor based on movement direction
+                -- stretch - stretch the cursor shape based on direction and velocity
+                -- none    - do not change the cursor's behaviour
+                mode = "stretch",
 
-    -- sets the cursor behaviour, supports these values:
-    -- tilt    - tilt the cursor based on x-velocity
-    -- rotate  - rotate the cursor based on movement direction
-    -- stretch - stretch the cursor shape based on direction and velocity
-    -- none    - do not change the cursor's behaviour
-    mode = "stretch",
+                -- minimum angle difference in degrees after which the shape is changed
+                -- smaller values are smoother, but more expensive for hw cursors
+                threshold = 1,
 
-    -- minimum angle difference in degrees after which the shape is changed
-    -- smaller values are smoother, but more expensive for hw cursors
-    threshold = 1,
+                rotate = {
 
-    -- for mode = "rotate"
-    rotate = {
+                    -- length in px of the simulated stick used to rotate the cursor
+                    -- most realistic if this is your actual cursor size
+                    length = 20,
 
-        -- length in px of the simulated stick used to rotate the cursor
-        -- most realistic if this is your actual cursor size
-        length = 20,
+                    -- clockwise offset applied to the angle in degrees
+                    -- this will apply to ALL shapes
+                    offset = 0.0,
+                },
 
-        -- clockwise offset applied to the angle in degrees
-        -- this will apply to ALL shapes
-        offset = 0.0,
-    },
+                tilt = {
 
-    -- for mode = "tilt"
-    tilt = {
+                    -- controls how powerful the tilt is, the lower, the more power
+                    -- this value controls at which speed (px/s) the full tilt is reached
+                    limit = 5000,
 
-        -- controls how powerful the tilt is, the lower, the more power
-        -- this value controls at which speed (px/s) the full tilt is reached
-        limit = 5000,
+                    -- relationship between speed and tilt, supports these values:
+                    -- linear             - a linear function is used
+                    -- quadratic          - a quadratic function is used (most realistic to actual air drag)
+                    -- negative_quadratic - negative version of the quadratic one, feels more aggressive
+                    -- see `activation` in `src/mode/utils.cpp` for how exactly the calculation is done
+                    activation = "negative_quadratic",
 
-        -- relationship between speed and tilt, supports these values:
-        -- linear             - a linear function is used
-        -- quadratic          - a quadratic function is used (most realistic to actual air drag)
-        -- negative_quadratic - negative version of the quadratic one, feels more aggressive
-        -- see `activation` in `src/mode/utils.cpp` for how exactly the calculation is done
-        activation = "negative_quadratic",
+                    -- time window (ms) over which the speed is calculated
+                    -- higher values will make slow motions smoother but more delayed
+                    window = 100,
 
-        -- time window (ms) over which the speed is calculated
-        -- higher values will make slow motions smoother but more delayed
-        window = 100,
+                    -- full tilt for each side (°)
+                    full = 60,
+                },
 
-        -- full tilt for each side (°)
-        full = 60,
-    },
+                stretch = {
 
-    -- for mode = "stretch"
-    stretch = {
+                    -- controls how much the cursor is stretched
+                    -- this value controls at which speed (px/s) the full stretch is reached
+                    -- the full stretch being twice the original length
+                    limit = 3000,
 
-        -- controls how much the cursor is stretched
-        -- this value controls at which speed (px/s) the full stretch is reached
-        -- the full stretch being twice the original length
-        limit = 3000,
+                    -- relationship between speed and stretch amount, supports these values:
+                    -- linear             - a linear function is used
+                    -- quadratic          - a quadratic function is used
+                    -- negative_quadratic - negative version of the quadratic one, feels more aggressive
+                    -- see `activation` in `src/mode/utils.cpp` for how exactly the calculation is done
+                    activation = "quadratic",
 
-        -- relationship between speed and stretch amount, supports these values:
-        -- linear             - a linear function is used
-        -- quadratic          - a quadratic function is used
-        -- negative_quadratic - negative version of the quadratic one, feels more aggressive
-        -- see `activation` in `src/mode/utils.cpp` for how exactly the calculation is done
-        activation = "quadratic",
+                    -- time window (ms) over which the speed is calculated
+                    -- higher values will make slow motions smoother but more delayed
+                    window = 100,
+                },
 
-        -- time window (ms) over which the speed is calculated
-        -- higher values will make slow motions smoother but more delayed
-        window = 100,
-    },
+                -- configure shake to find
+                shake = {
 
-    -- configure shake to find
-    -- magnifies the cursor if its is being shaken
-    shake = {
+                    enabled = true,
 
-        -- enables shake to find
-        enabled = true,
+                    -- controls how soon a shake is detected
+                    -- lower values mean sooner
+                    threshold = 5.0,
 
-        -- controls how soon a shake is detected
-        -- lower values mean sooner
-        threshold = 5.0,
+                    -- magnification level immediately after shake start
+                    base = 3.0,
+                    -- magnification increase per second when continuing to shake
+                    speed = 2.0,
+                    -- how much the speed is influenced by the current shake intensity
+                    influence = 0.6,
 
-        -- magnification level immediately after shake start
-        base = 4.0,
-        -- magnification increase per second when continuing to shake
-        speed = 4.0,
-        -- how much the speed is influenced by the current shake intensity
-        influence = 0.0,
+                    -- maximal magnification the cursor can reach
+                    -- values below 1 disable the limit (e.g. 0)
+                    limit = 0.0,
 
-        -- maximal magnification the cursor can reach
-        -- values below 1 disable the limit (e.g. 0)
-        limit = 0.0,
+                    -- time in milliseconds the cursor will stay magnified after a shake has ended
+                    timeout = 300,
 
-        -- time in milliseconds the cursor will stay magnified after a shake has ended
-        timeout = 300,
+                    -- show cursor behaviour `tilt`, `rotate`, etc. while shaking
+                    effects = true,
 
-        -- show cursor behaviour `tilt`, `rotate`, etc. while shaking
-        effects = true,
+                    -- enable ipc events for shake
+                    -- see the `ipc` section below
+                    ipc = false,
+                },
 
-        -- enable ipc events for shake
-        -- see the `ipc` section below
-        ipc = false,
-    },
+                -- use hyprcursor to get a higher resolution texture when the cursor is magnified
+                -- see the `hyprcursor` section below
+                hyprcursor = {
 
-    -- use hyprcursor to get a higher resolution texture when the cursor is magnified
-    -- see the `hyprcursor` section below
-    hyprcursor = {
+                    -- use nearest-neighbour (pixelated) scaling when magnifying beyond texture size
+                    -- this will also have effect without hyprcursor support being enabled
+                    -- 0 - never use pixelated scaling
+                    -- 1 - use pixelated when no highres image
+                    -- 2 - always use pixelated scaling
+                    nearest = 1,
 
-        -- use nearest-neighbour (pixelated) scaling when magnifying beyond texture size
-        -- this will also have effect without hyprcursor support being enabled
-        -- 0 - never use pixelated scaling
-        -- 1 - use pixelated when no highres image
-        -- 2 - always use pixelated scaling
-        nearest = 1,
+                    -- enable dedicated hyprcursor support
+                    enabled = true,
 
-        -- enable dedicated hyprcursor support
-        enabled = true,
+                    -- resolution in pixels to load the magnified shapes at
+                    -- be warned that loading a very high-resolution image will take a long time and might impact memory consumption
+                    -- -1 means we use [normal cursor size] * [shake:base option]
+                    resolution = -1,
 
-        -- resolution in pixels to load the magnified shapes at
-        -- be warned that loading a very high-resolution image will take a long time and might impact memory consumption
-        -- -1 means we use [normal cursor size] * [shake:base option]
-        resolution = -1,
-
-        -- shape to use when clientside cursors are being magnified
-        -- see the shape-name property of shape rules for possible names
-        -- specifying clientside will use the actual shape, but will be pixelated
-        fallback = "clientside",
-    },
-}}}
+                    -- shape to use when clientside cursors are being magnified
+                    -- see the shape-name property of shape rules for possible names
+                    -- specifying clientside will use the actual shape, but will be pixelated
+                    fallback = "clientside",
+                },
+            }
+        }
+    }
 end
