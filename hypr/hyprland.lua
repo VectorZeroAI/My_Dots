@@ -204,9 +204,21 @@ hl.bind("SUPER + D", hl.dsp.exec_cmd("hyprlock"))
 hl.bind("SUPER + l", hl.dsp.focus({direction="right"}))
 hl.bind("SUPER + h", hl.dsp.focus({direction="left"}))
 
--- TODO : Try to use submaps to make more vim like navigation
--- Like making navigation in workspace VS cross workspace by a submap as well as application activation through a submap as well
--- Modal navigation !
+hl.bind("SUPER + b", hl.dsp.submap("window_manage"))
+
+hl.define_submap("window_manage", function ()
+    hl.bind("j", hl.dsp.focus({workspace="+1"}))
+    hl.bind("k", hl.dsp.focus({workspace="-1"}))
+
+    hl.bind("l", hl.dsp.focus({direction="right"}))
+    hl.bind("h", hl.dsp.focus({direction="left"}))
+    hl.bind("f", hl.dsp.window.fullscreen({"fullscreen", "toggle", 1}))
+
+    hl.bind("mouse:272", hl.dsp.window.drag(), { mouse = true })
+    hl.bind("mouse:273", hl.dsp.window.resize(), { mouse = true })
+
+    hl.bind("SUPER + b", hl.dsp.submap("reset"))
+end)
 
 -- Switch to specific workspaces.
 for i = 1, 9 do
@@ -214,9 +226,9 @@ for i = 1, 9 do
     hl.bind("SUPER + SHIFT + " .. i, hl.dsp.window.move({workspace=i, follow = true}))
 end
 
--- Mouse bindings for moving and resizing windows.
-hl.bind("SUPER + " .. "mouse:272", hl.dsp.window.drag(), { mouse = true })
-hl.bind("SUPER + " .. "mouse:273", hl.dsp.window.resize(), { mouse = true })
+-- -- Mouse bindings for moving and resizing windows.
+-- hl.bind("SUPER + " .. "mouse:272", hl.dsp.window.drag(), { mouse = true })
+-- hl.bind("SUPER + " .. "mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 -- Multimedia keys (volume, brightness, media controls).
 -- Using `{ repeating = true }` for press-and-hold on volume up.
