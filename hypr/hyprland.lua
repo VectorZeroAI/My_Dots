@@ -35,7 +35,6 @@ local menu = "wofi"
 ---------------
 -- ## AUTOSTART ###
 ---------------
--- Using the hyprland.start event to launch applications at startup.
 -- See: https://wiki.hypr.land/Configuring/Basics/Autostart/
 --
 hl.on("hyprland.start", function()
@@ -188,37 +187,59 @@ hl.device({
 -- ## KEYBINDINGS ###
 -------------------
 
--- Application shortcuts.
-hl.bind("SUPER + Q", hl.dsp.exec_cmd("kitty"))
-hl.bind("SUPER + C", hl.dsp.window.close())
-hl.bind("SUPER + M", hl.dsp.exit())
-hl.bind("SUPER + E", hl.dsp.exec_cmd(fileManager))
-hl.bind("SUPER + V", hl.dsp.window.float({action="toggle", window="activewindow"}))
-hl.bind("SUPER + R", hl.dsp.exec_cmd("wofi --show drun"))
-hl.bind("SUPER + X", hl.dsp.exec_cmd("wofi --show run"))
-hl.bind("SUPER + S", hl.dsp.exec_cmd("vivaldi"))
-hl.bind("SUPER + F", hl.dsp.window.fullscreen({"fullscreen", "toggle", 1}))
-hl.bind("SUPER + D", hl.dsp.exec_cmd("hyprlock"))
-
--- Move focus between windows (like Vim keys).
-hl.bind("SUPER + l", hl.dsp.focus({direction="right"}))
-hl.bind("SUPER + h", hl.dsp.focus({direction="left"}))
-
-hl.bind("SUPER + b", hl.dsp.submap("window_manage"))
-
+-- The window management submap.
 hl.define_submap("window_manage", function ()
-    hl.bind("j", hl.dsp.focus({workspace="+1"}))
-    hl.bind("k", hl.dsp.focus({workspace="-1"}))
+    hl.bind("k", hl.dsp.focus({workspace="+1"}))
+    hl.bind("j", hl.dsp.focus({workspace="-1"}))
+
+    for i = 1, 9 do
+        hl.bind("" .. i, hl.dsp.focus({workspace=i}))
+        hl.bind("SHIFT + " .. i, hl.dsp.window.move({workspace=i, follow = true}))
+    end
 
     hl.bind("l", hl.dsp.focus({direction="right"}))
     hl.bind("h", hl.dsp.focus({direction="left"}))
     hl.bind("f", hl.dsp.window.fullscreen({"fullscreen", "toggle", 1}))
 
+    hl.bind("q", hl.dsp.exec_cmd("kitty"))
+    hl.bind("c", hl.dsp.window.close())
+    hl.bind("e", hl.dsp.exec_cmd(fileManager))
+    hl.bind("s", hl.dsp.exec_cmd("vivaldi"))
+    hl.bind("r", hl.dsp.exec_cmd("wofi --show drun"))
+    hl.bind("x", hl.dsp.exec_cmd("wofi --show run"))
+
+
+
     hl.bind("mouse:272", hl.dsp.window.drag(), { mouse = true })
     hl.bind("mouse:273", hl.dsp.window.resize(), { mouse = true })
 
-    hl.bind("SUPER + b", hl.dsp.submap("reset"))
+    hl.bind("return", hl.dsp.submap("type"))
+
+    hl.bind("escape", hl.dsp.submap("reset"))
 end)
+
+-- Submap to type stuff into the thingy.
+hl.define_submap("type", function ()
+    hl.bind("escape", hl.dsp.submap("reset"))
+    hl.bind("SUPER + b", hl.dsp.submap("window_manage"))
+    hl.bind("return", hl.dsp.submap("window_manage"), {non_consuming = true})
+end)
+
+
+-- The global shortcuts.
+hl.bind("SUPER + Q", hl.dsp.exec_cmd("kitty"))
+hl.bind("SUPER + C", hl.dsp.window.close())
+hl.bind("SUPER + M", hl.dsp.exit())
+hl.bind("SUPER + V", hl.dsp.window.float({action="toggle", window="activewindow"}))
+hl.bind("SUPER + F", hl.dsp.window.fullscreen({"fullscreen", "toggle", 1}))
+hl.bind("SUPER + D", hl.dsp.exec_cmd("hyprlock"))
+-- hl.bind("SUPER + A", hl.dsp.toggle) TODO : Add overlaying terminal with special workspace
+
+-- Move focus between windows (like Vim keys).
+hl.bind("SUPER + l", hl.dsp.focus({direction="right"}))
+hl.bind("SUPER + h", hl.dsp.focus({direction="left"}))
+hl.bind("SUPER + b", hl.dsp.submap("window_manage"))
+
 
 -- Switch to specific workspaces.
 for i = 1, 9 do
