@@ -127,3 +127,13 @@ else
     clear
     fastfetch
 fi
+
+# Offer to launch Hyprland on TTY1, but only in a bare console
+if [[ -z "$WAYLAND_DISPLAY" && -z "$DISPLAY" && "$XDG_VTNR" == "1" ]]; then
+    print -n "Start Hyprland? [Y/n] "
+    read -r reply
+    case "$reply" in
+        ""|[Yy]) start-hyprland ;;     # Enter, y, Y → launch
+        *) : ;;                  # anything else → drop to shell
+    esac
+fi
