@@ -111,6 +111,16 @@ hl.config({
         mfact = 0.60
     },
 
+    scrolling = {
+        fullscreen_on_one_column = true, -- A single window takes the whole screen
+        column_width = 0.5,              -- Default column width (50% of screen)
+        focus_fit_method = 0,            -- 0 = center, 1 = fit
+        follow_focus = true,
+        direction = "right",
+        wrap_swapcol = true,
+        wrap_focus = true
+    },
+
     -- Miscellaneous settings.
     -- See: https://wiki.hypr.land/Configuring/Variables/#misc
     misc = {
