@@ -186,6 +186,8 @@ hl.device({
 -------------------
 -- ## KEYBINDINGS ###
 -------------------
+hl.bind("escape", hl.dsp.submap("reset"), {submap_universal = true, non_consuming = true})
+hl.bind("SUPER + b", hl.dsp.submap("window_manage"), {submap_universal = true})
 
 -- The window management submap.
 hl.define_submap("window_manage", function ()
@@ -205,6 +207,11 @@ hl.define_submap("window_manage", function ()
     hl.bind("c", hl.dsp.window.close())
     hl.bind("e", hl.dsp.exec_cmd(fileManager))
     hl.bind("s", hl.dsp.exec_cmd("vivaldi"))
+--     hl.bind("m + a", function ()
+--         hl.dispatch(hl.dsp.window.move({workspace="special:magic", follow = true})) -- FIX: Doesnt work
+--         hl.dispatch(hl.dsp.workspace.toggle_special("magic"))
+--     end)
+    hl.bind("a", hl.dsp.workspace.toggle_special("magic"))
 
     hl.bind("r", function ()
         hl.dispatch(hl.dsp.exec_cmd("wofi --show drun"))
@@ -218,13 +225,10 @@ hl.define_submap("window_manage", function ()
     hl.bind("mouse:272", hl.dsp.window.drag(), { mouse = true })
     hl.bind("mouse:273", hl.dsp.window.resize(), { mouse = true })
 
-    hl.bind("escape", hl.dsp.submap("reset"))
 end)
 
 -- Submap to type stuff into the thingy.
 hl.define_submap("type", function ()
-    hl.bind("escape", hl.dsp.submap("reset"))
-    hl.bind("SUPER + b", hl.dsp.submap("window_manage"))
     hl.bind("return", hl.dsp.submap("window_manage"), {non_consuming = true})
 end)
 
