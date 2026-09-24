@@ -40,7 +40,7 @@ local menu = "wofi"
 hl.on("hyprland.start", function()
     hl.exec_cmd("waybar")
     hl.exec_cmd("swaybg -i ~/wallpapers-main/Wallpaper3.png")
-    hl.exec_cmd("vivaldi", { workspace= "2 silent"})
+    hl.exec_cmd("vivaldi", { workspace = "2 silent"})
 end)
 
 -------------------------
@@ -205,15 +205,18 @@ hl.define_submap("window_manage", function ()
     hl.bind("c", hl.dsp.window.close())
     hl.bind("e", hl.dsp.exec_cmd(fileManager))
     hl.bind("s", hl.dsp.exec_cmd("vivaldi"))
-    hl.bind("r", hl.dsp.exec_cmd("wofi --show drun"))
-    hl.bind("x", hl.dsp.exec_cmd("wofi --show run"))
 
-
+    hl.bind("r", function ()
+        hl.dispatch(hl.dsp.exec_cmd("wofi --show drun"))
+        hl.dispatch(hl.dsp.submap("type"))
+    end)
+    hl.bind("x", function ()
+        hl.dispatch(hl.dsp.exec_cmd("wofi --show run"))
+        hl.dispatch(hl.dsp.submap("type"))
+    end)
 
     hl.bind("mouse:272", hl.dsp.window.drag(), { mouse = true })
     hl.bind("mouse:273", hl.dsp.window.resize(), { mouse = true })
-
-    hl.bind("return", hl.dsp.submap("type"))
 
     hl.bind("escape", hl.dsp.submap("reset"))
 end)
@@ -233,11 +236,14 @@ hl.bind("SUPER + M", hl.dsp.exit())
 hl.bind("SUPER + V", hl.dsp.window.float({action="toggle", window="activewindow"}))
 hl.bind("SUPER + F", hl.dsp.window.fullscreen({"fullscreen", "toggle", 1}))
 hl.bind("SUPER + D", hl.dsp.exec_cmd("hyprlock"))
--- hl.bind("SUPER + A", hl.dsp.toggle) TODO : Add overlaying terminal with special workspace
+
+-- Toggle special workspace.
+hl.bind("SUPER + A", hl.dsp.workspace.toggle_special("magic"))
 
 -- Move focus between windows (like Vim keys).
 hl.bind("SUPER + l", hl.dsp.focus({direction="right"}))
 hl.bind("SUPER + h", hl.dsp.focus({direction="left"}))
+
 hl.bind("SUPER + b", hl.dsp.submap("window_manage"))
 
 
@@ -266,13 +272,18 @@ hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"))
 
 -- See: https://wiki.hypr.land/Configuring/Basics/Window-Rules/
 --
--- ----------------
--- WINDOW RULES ---
--- ----------------
+-- ---------
+-- RULES ---
+-- ---------
 hl.window_rule({
     name = "smart_gaps",
     match = { workspace = "w[1]" },
     border_size = 0
+})
+
+hl.workspace_rule({
+    workspace = "special:magic",
+    on_created_empty = "kitty"
 })
 
 hl.window_rule({
