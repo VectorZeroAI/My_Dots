@@ -39,7 +39,7 @@ local menu = "wofi"
 --
 hl.on("hyprland.start", function()
     hl.exec_cmd("waybar")
-    hl.exec_cmd("swaybg -i ~/wallpapers-main/Wallpaper3.png")
+    hl.exec_cmd("awww-daemon")
     hl.exec_cmd("vivaldi", { workspace = "2 silent"})
 end)
 
@@ -193,8 +193,24 @@ hl.device({
     sensitivity = -0.5
 })
 
+------------------------
+--- Wallpapers setup ---
+------------------------
+
+
+function set_wallpaper(ws)
+    if io.open("/home/null/Wallpapers/workspaces/" .. ws) then
+        hl.exec_cmd("awww img ~/Wallpapers/workspaces/" .. ws .. " --transition-type fade --transition-duration 0.3")
+    else
+        hl.exec_cmd("awww img ~/Wallpapers/workspaces/1 --transition-type fade --transition-duration 0.3")
+    end
+end
+
+hl.on("workspace.active", function (ws) set_wallpaper(ws.id) end)
+
+
 -------------------
--- ## KEYBINDINGS ###
+-- ## KEYBINDINGS ##
 -------------------
 hl.bind("escape", hl.dsp.submap("reset"), {submap_universal = true, non_consuming = true})
 hl.bind("SUPER + b", hl.dsp.submap("window_manage"), {submap_universal = true})
