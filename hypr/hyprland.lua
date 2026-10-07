@@ -197,8 +197,9 @@ hl.device({
 --- Wallpapers setup ---
 ------------------------
 
+local rolled_walls = {}
 
-function set_wallpaper(ws)
+function SetWallpaper(ws)
     if io.open("/home/null/Wallpapers/workspaces/" .. ws) then
         hl.exec_cmd("awww img ~/Wallpapers/workspaces/" .. ws .. " --transition-type fade --transition-duration 0.3")
     else
@@ -206,8 +207,10 @@ function set_wallpaper(ws)
     end
 end
 
-hl.on("workspace.active", function (ws) set_wallpaper(ws.id) end)
+-- 'magick %s[0] -resize 1x1! -colorspace Gray -format "%%[fx:mean]" info: 2>/dev/null'
+-- TODO: Try make a wallpaper roller keybind
 
+hl.on("workspace.active", function (ws) SetWallpaper(ws.id) end)
 
 -------------------
 -- ## KEYBINDINGS ##
