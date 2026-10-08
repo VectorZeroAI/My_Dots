@@ -197,16 +197,18 @@ hl.device({
 --- Wallpapers setup ---
 ------------------------
 
+local transition_options = " --transition-type any --transition-duration 0.3"
+
 local rolled_walls = {}
 
 function SetWallpaper(ws)
     if rolled_walls[ws] ~= nil then
-        hl.exec_cmd("awww img " .. rolled_walls[ws] .. " --transition-type fade --transition-duration 0.3")
+        hl.exec_cmd("awww img " .. rolled_walls[ws] .. transition_options)
     else
         if io.open("/home/null/Wallpapers/workspaces/" .. ws) then
-            hl.exec_cmd("awww img ~/Wallpapers/workspaces/" .. ws .. " --transition-type fade --transition-duration 0.3")
+            hl.exec_cmd("awww img ~/Wallpapers/workspaces/" .. ws .. transition_options)
         else
-            hl.exec_cmd("awww img ~/Wallpapers/workspaces/1 --transition-type fade --transition-duration 0.3")
+            hl.exec_cmd("awww img ~/Wallpapers/workspaces/1 " .. transition_options)
         end
     end
 end
@@ -253,7 +255,7 @@ local function roll_wallpaper()
             goto continue
         end
         rolled_walls[ws.id] = file
-        hl.exec_cmd("awww img " .. file .. " --transition-type fade --transition-duration 0.3")
+        hl.exec_cmd("awww img "..file..transition_options)
         break
 
         ::continue::
