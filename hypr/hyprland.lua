@@ -233,7 +233,8 @@ local function roll_wallpaper()
                 error("Files is empty")
             end
         end
-        local file = Files[math.random(#Files)]
+        local idx = math.random(#Files)
+        local file = Files[idx]
 
         local cmd = string.format('magick %s[0] -resize 1x1! -colorspace Gray -format "%%[fx:mean]" info: 2>/dev/null', file)
 
@@ -248,10 +249,12 @@ local function roll_wallpaper()
         local ws = hl.get_active_workspace()
 
         if brightness > 0.4 then
+            table.remove(Files, idx)
             goto continue
         end
         rolled_walls[ws.id] = file
         hl.exec_cmd("awww img " .. file .. " --transition-type fade --transition-duration 0.3")
+        break
 
         ::continue::
     end
@@ -264,7 +267,6 @@ hl.on("workspace.active", function (ws) SetWallpaper(ws.id) end)
 -------------------
 hl.bind("escape", hl.dsp.submap("reset"), {submap_universal = true, non_consuming = true})
 hl.bind("SUPER + b", hl.dsp.submap("window_manage"), {submap_universal = true})
-hl.bind("SUPER + G", function () roll_wallpaper() end)
 
 -- The window management submap.
 hl.define_submap("window_manage", function ()
@@ -317,6 +319,8 @@ hl.bind("SUPER + M", hl.dsp.exit())
 hl.bind("SUPER + V", hl.dsp.window.float({action="toggle", window="activewindow"}))
 hl.bind("SUPER + F", hl.dsp.window.fullscreen({"fullscreen", "toggle", 1}))
 hl.bind("SUPER + D", hl.dsp.exec_cmd("hyprlock"))
+hl.bind("SUPER + G", roll_wallpaper)
+hl.bind("SUPER + SHIFT + G", function () rolled_walls = {} end) -- reset the rolled wallpapers
 
 -- Toggle special workspace.
 hl.bind("SUPER + A", hl.dsp.workspace.toggle_special("magic"))
