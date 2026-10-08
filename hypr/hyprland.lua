@@ -358,10 +358,17 @@ hl.bind("XF86AudioPlay", hl.dsp.exec_cmd("playerctl play-pause"))
 hl.bind("XF86AudioPrev", hl.dsp.exec_cmd("playerctl previous"))
 
 -- See: https://wiki.hypr.land/Configuring/Basics/Window-Rules/
---
--- ---------
+------------
 -- RULES ---
--- ---------
+------------
+
+
+hl.window_rule({
+    name = "suppress-maximize-events",
+    match = { class = ".*" },
+    suppress_event = "maximize",
+})
+
 hl.window_rule({
     name = "smart_gaps",
     match = { workspace = "w[1]" },
@@ -397,7 +404,7 @@ local matches_list = {
     {title = "Open"},
     {title = "Open Files"},
     {class = "org.pulseaudio.pavucontrol"},
-    {modal = true}
+    --{modal = true}
 }
 
 for _, value in ipairs(matches_list) do
