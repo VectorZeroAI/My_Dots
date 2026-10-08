@@ -200,15 +200,62 @@ hl.device({
 local rolled_walls = {}
 
 function SetWallpaper(ws)
-    if io.open("/home/null/Wallpapers/workspaces/" .. ws) then
-        hl.exec_cmd("awww img ~/Wallpapers/workspaces/" .. ws .. " --transition-type fade --transition-duration 0.3")
+    if rolled_walls[ws] ~= nil then
+        hl.exec_cmd("awww img " .. rolled_walls[ws] .. " --transition-type fade --transition-duration 0.3")
     else
-        hl.exec_cmd("awww img ~/Wallpapers/workspaces/1 --transition-type fade --transition-duration 0.3")
+        if io.open("/home/null/Wallpapers/workspaces/" .. ws) then
+            hl.exec_cmd("awww img ~/Wallpapers/workspaces/" .. ws .. " --transition-type fade --transition-duration 0.3")
+        else
+            hl.exec_cmd("awww img ~/Wallpapers/workspaces/1 --transition-type fade --transition-duration 0.3")
+        end
     end
 end
 
 -- 'magick %s[0] -resize 1x1! -colorspace Gray -format "%%[fx:mean]" info: 2>/dev/null'
--- TODO: Try make a wallpaper roller keybind
+
+local lfs = require("lfs")
+
+Files = {}
+local function scan(dir)
+    for n in lfs.dir(dir) do
+        local path = dir .. "/" .. n
+        if lfs.attributes(path, "mode") == "file" then
+            Files[#Files+1] = path
+        end
+    end
+end
+
+local function roll_wallpaper()
+    while true do
+        if #Files < 5 then
+            scan("/home/null/Wallpapers/anime")
+            if #Files < 5 then
+                error("Files is empty")
+            end
+        end
+        local file = Files[math.random(#Files)]
+
+        local cmd = string.format('magick %s[0] -resize 1x1! -colorspace Gray -format "%%[fx:mean]" info: 2>/dev/null', file)
+
+        local p = io.popen(cmd)
+
+        local out = p:read("*a")
+
+        p:close()
+
+        local brightness = tonumber(out)
+
+        local ws = hl.get_active_workspace()
+
+        if brightness > 0.4 then
+            goto continue
+        end
+        rolled_walls[ws.id] = file
+        hl.exec_cmd("awww img " .. file .. " --transition-type fade --transition-duration 0.3")
+
+        ::continue::
+    end
+end
 
 hl.on("workspace.active", function (ws) SetWallpaper(ws.id) end)
 
@@ -217,6 +264,7 @@ hl.on("workspace.active", function (ws) SetWallpaper(ws.id) end)
 -------------------
 hl.bind("escape", hl.dsp.submap("reset"), {submap_universal = true, non_consuming = true})
 hl.bind("SUPER + b", hl.dsp.submap("window_manage"), {submap_universal = true})
+hl.bind("SUPER + G", function () roll_wallpaper() end)
 
 -- The window management submap.
 hl.define_submap("window_manage", function ()
