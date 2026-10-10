@@ -1,3 +1,42 @@
+----------------
+--- MONITORS ---
+----------------
+-- See: https://wiki.hypr.land/Configuring/Basics/Monitors/
+
+hl.monitor({
+    output = "eDP-1",
+    mode = "preferred",
+    position = "auto",
+    scale = 1
+})
+
+hl.monitor({
+    output = "HDMI-A-1",
+    mode = "preferred",
+    position = "auto",
+    mirror = "eDP-1",
+    scale = 1
+})
+
+
+-------------------------
+-- ## ENVIRONMENT VARIABLES ###
+-------------------------
+-- Set environment variables for X11 and Hyprland cursors.
+-- See: https://wiki.hypr.land/Configuring/Advanced-and-Cool/Environment-variables/
+
+hl.env("XCURSOR_SIZE", "24")
+hl.env("HYPRCURSOR_SIZE", "24")
+
+-------------------
+-- ## PERMISSIONS ###
+-------------------
+-- -- Permissions for plugins.
+-- hl.permission({
+--     binary = "/usr/(bin|local/bin)/hyprpm",
+--     type = "plugin",
+--     mode = "allow"
+-- })
 -------------------
 -- ## LOOK AND FEEL ###
 -------------------
