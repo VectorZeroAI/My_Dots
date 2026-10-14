@@ -16,6 +16,11 @@ vim.keymap.set("n", "<leader>p", "p", {desc="Remapped normal paste to leader pas
 
 vim.keymap.set("n", "cc", ":cclose<CR>", {desc="[c][c]lose command"})
 
+vim.keymap.set("n", "n", "nzz", {desc="[n]ext and center"})
+vim.keymap.set("n", "N", "Nzz", {desc="[N]ext invert and center"})
+
+vim.keymap.set("n", "<leader>u", ":Undotree<CR>") -- run packadd nvim.undotree first
+
 ------- telescope ----------
 local telescope = require('telescope.builtin')
 

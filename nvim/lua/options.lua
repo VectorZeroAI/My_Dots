@@ -34,7 +34,8 @@ vim.api.nvim_create_autocmd("CursorHold", {
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "markdown",
     callback = function()
-        vim.opt_local.wrap = true
+        vim.opt.wrap = true
+        vim.opt.linebreak = true
     end,
 })
 
