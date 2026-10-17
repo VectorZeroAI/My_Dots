@@ -30,25 +30,9 @@ vim.api.nvim_create_autocmd("CursorHold", {
     end,
 })
 
--- Markdown-specific wrapping
-vim.api.nvim_create_autocmd("FileType", {
-    pattern = "markdown",
-    callback = function()
-        vim.opt_local.wrap = true
-        vim.opt_local.linebreak = true
-    end,
-})
-
 -- expolerer options
-vim.g.newtrw_banner = 0
+vim.g.newtrw_banner = 0 -- FIXME: This clearly doesnt remove the banner
 
--- Fixing some bugs with treesitter
-vim.api.nvim_create_autocmd("FileType", {
-    pattern ={ "python", "go", "sql", "py", },
-    callback = function()
-        vim.treesitter.start()
-    end,
-})
 
 -- Enable Tree-sitter folding
 vim.opt.foldmethod = "expr"

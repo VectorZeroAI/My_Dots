@@ -6,8 +6,6 @@ vim.g.maplocalleader = ' '
 ---------- misc -------
 vim.keymap.set('n', '<Esc>', '<cmd>nohlsearch<CR>', {desc = "Stop highlighting when pressing Esc, and it has nothing else to do . "})
 
-vim.keymap.set({"n", "v"}, "<leader>d", '"_d', { noremap = true })
-
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv", { noremap = true })
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv", { noremap = true })
 
@@ -19,14 +17,19 @@ vim.keymap.set("n", "cc", ":cclose<CR>", {desc="[c][c]lose command"})
 vim.keymap.set("n", "n", "nzz", {desc="[n]ext and center"})
 vim.keymap.set("n", "N", "Nzz", {desc="[N]ext invert and center"})
 
-vim.keymap.set("n", "<leader>u", ":Undotree<CR>") -- run packadd nvim.undotree first
+vim.keymap.set("n", "<leader>u", ":Undotree<CR>")
+vim.cmd("packadd nvim.undotree") -- activate the undotree so it works
+
 
 ------- telescope ----------
 local telescope = require('telescope.builtin')
 
 vim.keymap.set('n', '<leader>sf', function ()
-    telescope.git_files()
-end, { desc = "[S]earch [F]iles , only in your current repo, but thats the default. "})
+    local _, err = pcall(telescope.git_files)
+    if err ~= nil then
+        telescope.find_files()
+    end
+end, { desc = "[S]earch [F]iles , only in your current repo, but thats the default, if doesnt work fall back to all files."})
 
 vim.keymap.set('n', '<leader>saf', function ()
     telescope.find_files()
@@ -39,7 +42,7 @@ end, { desc = " [s]earch for [w]ord across everything"})
 vim.keymap.set('n', '<leader>/', '<cmd>Telescope current_buffer_fuzzy_find<cr>', { desc = 'Search buffer' })
 
 -------- LSP -----------
---- The LSP on attach keymap creation
+
 vim.api.nvim_create_autocmd("LspAttach", {
     callback = function ()
         vim.keymap.set('n', "<leader>d", function ()
@@ -66,31 +69,6 @@ vim.api.nvim_create_autocmd("LspAttach", {
             vim.lsp.buf.hover()
         end, { desc = " hover do[k]s "})
     end
-})
------ key remaps for speed -------
-
--- vim.keymap.set('i', 'ä', '{', { noremap = true })
--- vim.keymap.set('i', 'Ä', '}', { noremap = true })
--- 
--- vim.keymap.set('i', 'ö', '[', { noremap = true })
--- vim.keymap.set('i', 'Ö', ']', { noremap = true })
--- 
--- vim.keymap.set('i', 'ü', '(', { noremap = true })
--- vim.keymap.set('i', 'Ü', ')', { noremap = true })
--- 
--- vim.keymap.set('n', 'ä', '{', { noremap = true })
--- vim.keymap.set('n', 'Ä', '}', { noremap = true })
--- 
--- vim.keymap.set('n', 'ö', '[', { noremap = true })
--- vim.keymap.set('n', 'Ö', ']', { noremap = true })
--- 
--- vim.keymap.set('n', 'ü', '(', { noremap = true })
--- vim.keymap.set('n', 'Ü', ')', { noremap = true })
-
-vim.g.copilot_no_tab_map = true
-vim.keymap.set("i", "<C-l>", 'copilot#Accept("\\<CR>")', {
-    expr = true,
-    replace_keycodes = false,
 })
 
 -------- Harpoon ---------

@@ -3,3 +3,4 @@
 require('options')
 require('lazy_init')
 require('remaps')
+require('autocmds')
