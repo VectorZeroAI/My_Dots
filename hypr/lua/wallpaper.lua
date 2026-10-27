@@ -40,6 +40,10 @@ local function scan(dir, depth)
         depth = 0
     end
 
+    if depth > 3 then
+        return -- Depth limit guard against loops
+    end
+
     for n in lfs.dir(dir) do
         local path = dir .. "/" .. n
         if lfs.attributes(path, "mode") == "file" then
