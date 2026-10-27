@@ -35,11 +35,17 @@ end
 local lfs = require("lfs")
 
 Files = {}
-local function scan(dir)
+local function scan(dir, depth)
+    if depth ~= nil then
+        depth = 0
+    end
+
     for n in lfs.dir(dir) do
         local path = dir .. "/" .. n
         if lfs.attributes(path, "mode") == "file" then
             Files[#Files+1] = path
+        elseif lfs.attributes(path, "mode") == "directory" then
+            scan(path, depth + 1)
         end
     end
 end
@@ -47,7 +53,7 @@ end
 local function roll_wallpaper()
     while true do
         if #Files < 5 then
-            scan("/home/null/Wallpapers/anime")
+            scan("/home/null/Wallpapers/anime", 0)
             if #Files < 5 then
                 error("Files is empty")
             end
