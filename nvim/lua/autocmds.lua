@@ -21,16 +21,9 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("BufWritePre", {
     pattern = "python",
     callback = function (args)
-        vim.lsp.buf.format({
-            bufnr = args.buf,
-            timeout_ms = 3000,
-            filter = function (client)
-                return client.name == "ruff"
-            end
-        })
+        vim.system({"ruff", "format", vim.api.nvim_buf_get_name(args.buf)})
     end
 })
-
 
 -- Typst specific keymap
 vim.api.nvim_create_autocmd("FileType", {
