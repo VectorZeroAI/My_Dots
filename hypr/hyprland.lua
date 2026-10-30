@@ -22,3 +22,5 @@ require("lua/keybindings")
 require("lua/rules")
 
 require("lua/plugins")
+
+require("lua/blur")

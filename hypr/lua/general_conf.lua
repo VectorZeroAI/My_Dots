@@ -62,13 +62,6 @@ hl.config({
     decoration = {
         active_opacity = 1.0,
         inactive_opacity = 0.7,
-        blur = {
-            enabled = true,
-            size = 3,
-            passes = 1,
-            vibrancy = 0.7,
-            noise = 0
-        },
         glow = {
             enabled = false,
             range = 9,
@@ -104,6 +97,7 @@ hl.config({
     }
 })
 
+-- TODO : Use the lua handler for workspace.created event and check workspaces .isempty field, then spawn kitty, for special workspace.
 
 -- Default curves and animations, see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Animations/
 hl.curve("easeOutQuint",   { type = "bezier", points = { {0.23, 1},    {0.32, 1}    } })
