@@ -7,6 +7,13 @@ hl.config({
             vibrancy = 0.7,
             noise = 0,
             variant = "acrylic", -- default kawase -- NOTE: If battery life issues => Move back from acrylic to aurora or kawase
+            acrylic = {
+                aberration = 0.025,--0.025,
+                bulb = 20.0,
+                clarity = 0.50,
+                refraction = 20.0,
+                tint = "0x04EEF5FF" -- TODO : Edit this a bit
+            },
             glass = { -- general config of glass
                 refraction = 10,
                 roughness = 0.8,
@@ -22,13 +29,6 @@ hl.config({
                 radius = 20.0,
                 speed = 0.76,
                 strength = 32.0
-            },
-            acrylic = {
-                aberration = 0.025,--0.025,
-                bulb = 30.0,
-                clarity = 0.50,
-                refraction = 20.0,
-                tint = "0x34EEF5FF"
             },
             aurora = {
                 color1 = "0x29F0A0FF",
