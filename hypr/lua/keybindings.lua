@@ -45,6 +45,22 @@ hl.define_submap("type", function ()
     hl.bind("return", hl.dsp.submap("reset"), {non_consuming = true})
 end)
 
+local _is_vm = nil  -- cached result
+
+function IsVm()
+    if _is_vm == nil then
+        local p = io.popen("systemd-detect-virt --vm 2>/dev/null")
+        local out = p and p:read("*l") or ""
+        if p then p:close() end
+        _is_vm = (out ~= "" and out ~= "none")
+    end
+    return _is_vm
+end
+
+if IsVm() then
+    hl.env("LIBGL_ALWAYS_SOFTWARE", 1)
+end
+
 -- The global shortcuts.
 hl.bind("SUPER + Q", hl.dsp.exec_cmd("kitty"))
 hl.bind("SUPER + C", hl.dsp.window.close())
