@@ -106,6 +106,13 @@ return {
                 }
             }
 
+            vim.lsp.config.ocamllsp = {
+                default_config = {
+                    cmd = { "ocallsp" },
+                    root_dir = util.root_pattern(".git", "dune-project")
+                }
+            }
+
             -- Enable all servers
             vim.lsp.enable("pyright")
             vim.lsp.enable("ruff")
@@ -115,6 +122,7 @@ return {
             vim.lsp.enable("gopls")
             vim.lsp.enable("html")
             vim.lsp.enable("tinymist")
+            vim.lsp.enable("ocamllsp")
         end,
     },
 }
