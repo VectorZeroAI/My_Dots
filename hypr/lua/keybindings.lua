@@ -43,6 +43,7 @@ end)
 -- Submap to type stuff into the thingy.
 hl.define_submap("type", function ()
     hl.bind("return", hl.dsp.submap("reset"), {non_consuming = true})
+    hl.bind("escape", hl.dsp.submap("reset"), {non_consuming = true})
 end)
 
 local _is_vm = nil  -- cached result

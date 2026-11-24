@@ -6,7 +6,8 @@
         "cpu",
         "memory",
         "battery",
-        "tray"
+        "tray",
+        "hyprland/submap"
     ],
     "modules-center": [
     	"hyprland/workspaces"
@@ -17,6 +18,15 @@
         "backlight",
         "clock"
     ],
+    "hyprland/submap":{
+        "format":"{icon}",
+        "default-submap": "normal",
+        "icons": {
+            "window_manage": "WIN",
+            "normal": "NORMAL",
+            "type": "TYPE"
+        }
+    },
     // Modules configuration
     "keyboard-state": {
         "numlock": true,
