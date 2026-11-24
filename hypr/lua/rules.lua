@@ -16,11 +16,6 @@ hl.window_rule({
     border_size = 0
 })
 
-hl.workspace_rule({
-    workspace = "special:magic",
-    on_created_empty = "kitty"
-})
-
 hl.window_rule({
     name="kitty start width",
     match = { class = "kitty" },

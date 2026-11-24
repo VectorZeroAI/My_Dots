@@ -22,8 +22,6 @@ hl.define_submap("window_manage", function ()
     hl.bind("e", hl.dsp.exec_cmd(fileManager))
     hl.bind("s", hl.dsp.exec_cmd("vivaldi"))
 
-    hl.bind("a", hl.dsp.workspace.toggle_special("magic"))
-
     hl.bind("r", function ()
         hl.dispatch(hl.dsp.exec_cmd("wofi --show drun"))
         hl.dispatch(hl.dsp.submap("type"))
@@ -74,12 +72,11 @@ hl.bind("SUPER + RETURN", hl.dsp.exec_cmd("wl-kbptr"))
 
 hl.bind("SUPER + b", hl.dsp.submap("window_manage"))
 
--- Toggle special workspace.
-hl.bind("SUPER + A", hl.dsp.workspace.toggle_special("magic"))
-
 -- Move focus between windows (like Vim keys).
 hl.bind("SUPER + l", hl.dsp.focus({direction="right"}))
 hl.bind("SUPER + h", hl.dsp.focus({direction="left"}))
+hl.bind("SUPER + SHIFT + h", hl.dsp.window.move({direction="right"}))
+hl.bind("SUPER + SHIFT + l", hl.dsp.window.move({direction="left"}))
 
 hl.bind("SUPER + b", hl.dsp.submap("window_manage"))
 
