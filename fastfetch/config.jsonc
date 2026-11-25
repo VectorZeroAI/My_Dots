@@ -1,0 +1,38 @@
+{
+    "$schema": "https://github.com/fastfetch-cli/fastfetch/raw/master/doc/json_schema.json",
+    "modules": [
+        "os",
+        "kernel",
+        "host",
+        "break",
+        "separator",
+        "break",
+        "packages",
+        "shell",
+        "wm",
+        "font",
+        "terminal",
+        "break",
+        "separator",
+        "break",
+        "cpu",
+        "memory",
+        "gpu",
+        "disk",
+        "swap",
+        "battery",
+        "break",
+        "break",
+        "break",
+        "break"
+    ],
+    "logo": {
+        "source": "~/.config/fastfetch/logo.png",
+        "type": "kitty-icat",
+        "height": 40,
+        "width": 40
+    },
+    "display":{
+        "disableLinewrap": true
+    }
+}
