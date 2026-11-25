@@ -69,6 +69,8 @@ hl.bind("SUPER + F", hl.dsp.window.fullscreen({"fullscreen", "toggle", 1}))
 hl.bind("SUPER + D", hl.dsp.exec_cmd("hyprlock"))
 
 hl.bind("SUPER + RETURN", hl.dsp.exec_cmd("wl-kbptr"))
+hl.bind("SUPER + Up", hl.dsp.exec_cmd("ydotool mousemove -w -- 0 1"), { repeating = true } )
+hl.bind("SUPER + Down", hl.dsp.exec_cmd("ydotool mousemove -w -- 0 -1"), { repeating = true })
 
 hl.bind("SUPER + b", hl.dsp.submap("window_manage"))
 
