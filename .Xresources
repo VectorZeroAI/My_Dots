@@ -1,0 +1,6 @@
+! Nord theme for nsxiv
+Nsxiv.window.background: #2e3440  ! Nord0 - Darkest background
+Nsxiv.window.foreground: #d8dee9  ! Nord4 - Light text
+Nsxiv.bar.background:    #3b4252  ! Nord1 - Elevated surface for the status bar
+Nsxiv.bar.foreground:    #d8dee9  ! Nord4 - Light text for the status bar
+Nsxiv.mark.foreground:   #88c0d0  ! Nord8 - Primary accent (cyan) for marked images
