@@ -1,0 +1,52 @@
+#!/bin/sh
+
+WALLPAPERS="$HOME/Wallpapers/"
+
+case "$1" in 
+    a) 
+        choice=$(find $WALLPAPERS -mindepth 1 -maxdepth 1 -type d -printf '%f\n' \
+                 | sort \
+                 | wofi -d -p "Move to: ")
+
+        [ -z "$choice" ] && exit 1
+
+        dest="$WALLPAPERS/$choice"
+        
+        while read -r file; do
+            mv -- "$file" "$dest"
+        done
+        ;;
+    d)
+        while read -r file; do
+            mv -- "$file" "$WALLPAPERS/duplicates"
+        done
+        ;;
+
+    s)
+        choice=$(find "$(pwd)" -mindepth 1 -maxdepth 1 -type d -printf '%f\n' \
+                 | sort \
+                 | wofi -d -p "Move to: ")
+
+        [ -z "$choice" ] && exit 1
+
+        dest="$(pwd)/$choice"
+        
+        while read -r file; do
+            mv -- "$file" "$dest"
+        done
+        ;;
+    l)
+        choice=$(find "$(pwd)" -mindepth 1 -maxdepth 3 -type d -printf '%f\n' \
+                 | sort \
+                 | wofi -d -p "Move to: ")
+
+        [ -z "$choice" ] && exit 1
+
+        dest="$(pwd)/$choice"
+
+        while read -r file; do
+            ln -s -- "$file" "$dest"
+        done
+        ;;
+
+esac
