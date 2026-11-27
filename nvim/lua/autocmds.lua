@@ -21,14 +21,28 @@ vim.api.nvim_create_autocmd("FileType", {
 vim.api.nvim_create_autocmd("BufWritePre", {
     pattern = "python",
     callback = function (args)
-        vim.system({"ruff", "format", vim.api.nvim_buf_get_name(args.buf)})
+        vim.lsp.buf.format({
+            bufnr = args.buf,
+            timeout_ms = 3000,
+            filter = function (client)
+                return client.name == "ruff"
+            end
+        })
     end
 })
+
 
 -- Typst specific keymap
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "typst",
     callback = function ()
-        vim.keymap.set("n", "<leader>tp", "<cmd>TypstPreviewToggle<CR>", {desc = "[t]ypst [p]review"})
+        vim.keymap.set("n", "<leader>vp", "<cmd>TypstPreviewToggle<CR>", {desc = "[t]ypst [p]review"})
+    end
+})
+
+vim.api.nvim_create_autocmd("TextYankPost", {
+    desc="Highlight on yank",
+    callback = function ()
+        vim.highlight.on_yank()
     end
 })
