@@ -9,7 +9,7 @@
 # A string of exactly 11 characters, each representing a key.
 # The first 8 will be used to select sub-areas in bisect mode.
 # The last 3 will be used as left, right and middle click respectively.
-home_row_keys=hjklbbbbads
+home_row_keys=hkjlbbbbads
 
 # Modes (tile, bisect, split or float) to use; will be chained.
 modes=bisect
