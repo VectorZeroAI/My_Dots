@@ -10,7 +10,7 @@ vim.api.nvim_create_autocmd("FileType", {
         -- spellcheck
         vim.opt_local.spell = true
         vim.opt_local.spelllang = { "en_us", "de" }
-        vim.opt_local.spellfile = vim.fn.stdpath("config") .. "/spell/any.utf-8.add"
+        vim.opt_local.spellfile = vim.fn.stdpath("data") .. "/spell/any.utf-8.add"
     end,
 })
 
