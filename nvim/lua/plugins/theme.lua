@@ -8,13 +8,7 @@ return {
         vim.g.nord_disable_background = false
         vim.g.nord_cursorline_transparent = false
         vim.g.nord_uniform_diff_background = true
-
-        if IsAndroid == true then
-            vim.g.nord_italic = false
-        else
-            vim.g.nord_italic = true
-        end
-
+        vim.g.nord_italic = false
         vim.g.nord_bold = true
 
         vim.cmd.colorscheme("nord")

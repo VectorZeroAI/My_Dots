@@ -31,10 +31,9 @@ vim.api.nvim_create_autocmd("CursorHold", {
 })
 
 -- expolerer options
-vim.g.newtrw_banner = 0 -- FIXME: This clearly doesnt remove the banner
+vim.g.newtrw_banner = 0
 
-
--- Enable Tree-sitter folding
+-- Enabl Tree-sitter folding
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
 
