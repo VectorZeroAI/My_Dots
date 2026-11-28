@@ -1,8 +1,8 @@
-local is_android = vim.fn.has("android") == 1
+IsAndroid = vim.fn.has("android") == 1
 
 local plugins
 
-if is_android then
+if IsAndroid then
     plugins = {
         require("plugins.lsp.lsp"),
     }
