@@ -1,7 +1,6 @@
 # If kitty load normally else load recovery.
 if [[ ! -n "$KITTY_WINDOW_ID" ]]; then
     export ZSH="$HOME/.oh-my-zsh"
-    alias vim="vi"
 else
     # If you come from bash you might have to change your $PATH.
     # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
@@ -113,6 +112,15 @@ else
     # alias ohmyzsh="mate ~/.oh-my-zsh"
 
     # To make sure recovery is fine. 
+    # BEGIN opam configuration
+    # This is useful if you're using opam as it adds:
+    #   - the correct directories to the PATH
+    #   - auto-completion for the opam binary
+    # This section can be safely removed at any time if needed.
+    [[ ! -r '/home/null/.opam/opam-init/init.zsh' ]] || source '/home/null/.opam/opam-init/init.zsh' > /dev/null 2> /dev/null; true
+    # END opam configuration
+
+
     # MY ALIASES
     alias vpn="protonvpn connect"
     alias novpn="protonvpn disconnect"
@@ -120,10 +128,12 @@ else
     alias work="cd ~/work/ALaDOS/ && source .venv/bin/activate"
     alias vim="nvim"
     alias :q="exit"
+    alias fork="kitty -d . &" # Fork terminal window, really usefull
     # Activation of Starship prompt:
     eval "$(starship init zsh)"
     eval "$(ssh-agent -s)"
     eval "$(ssh-add ~/.ssh/key)"
+    eval "$(ssh-add ~/.ssh/gitlab)"
     clear
     fastfetch
 fi
