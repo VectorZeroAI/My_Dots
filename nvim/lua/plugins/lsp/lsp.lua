@@ -3,29 +3,12 @@ return {
     {
         "neovim/nvim-lspconfig",
         config = function()
-            local util = require("lspconfig.util")
-
-            -- Python: Pyright (type checking)
-            -- vim.lsp.config.pyright = {
-            --     default_config = {
-            --         cmd = { "pyright-langserver", "--stdio" },
-            --         filetypes = { "python" },
-            --         root_dir = util.root_pattern(
-            --             "pyproject.toml",
-            --             "setup.py",
-            --             ".git"
-            --         ),
-            --     },
-            -- }
-
             -- SQL
             vim.lsp.config.sqls = {
-                config = {
-                    settings = {
-                        sqls = {
-                            connections = {
-                                -- TODO: Add here connections for when working with it
-                            },
+                settings = {
+                    sqls = {
+                        connections = {
+                            -- TODO: Add here connections for when working with it
                         },
                     },
                 },
@@ -39,7 +22,7 @@ return {
                         diagnostics = { globals = { "vim", "hl" } },
                         workspace = {
                             library = vim.api.nvim_get_runtime_file("", true),
-                            checkThirdParty = false,
+                            checkThirdParty = false, -- TODO: Figure out if its even required anymore
                         },
                         telemetry = { enable = false },
                     },
@@ -80,7 +63,6 @@ return {
             }
 
             -- Enable all servers
-            -- vim.lsp.enable("pyright")
             vim.lsp.enable("basedpyright")
             vim.lsp.enable("ruff")
             vim.lsp.enable("jsonls")
