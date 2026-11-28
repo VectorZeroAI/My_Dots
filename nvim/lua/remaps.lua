@@ -21,8 +21,13 @@ set("n", "<leader>cc", ":cclose<CR>", {desc="[c]quickfix [c]lose command"})
 set("n", "n", "nzz", {desc="[n]ext and center"})
 set("n", "N", "Nzz", {desc="[N]ext invert and center"})
 
-set("n", "<leader>tc", [[:s/\v(^|\s)\zs\w/\u&/ge<CR>]], { desc = "[t]itle [c]ase the line" })
-set("x", "<leader>tc", [[:s/\v%V(^|\s)\zs\w/\u&/ge<CR>]], { desc = "[t]itle [c]ase the selection" })
+vim.keymap.set("n", "<leader>tc",
+    [=[:s/\v(^|\s)["'([{“‘]*\zs\w/\u&/ge<CR>]=],
+    { desc = "Title case line" })
+
+vim.keymap.set("x", "<leader>tc",
+    [=[:s/\v(^|\s)["'([{“‘]*\zs%V\w/\u&/ge<CR>]=],
+    { desc = "Title case selection" })
 
 ------- Undotree -------------
 
