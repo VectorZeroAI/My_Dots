@@ -2,9 +2,13 @@ return {
     "williamboman/mason-lspconfig.nvim",
     opts = {
         ensure_installed = {
-            "pyright",
+            "basedpyright",
             "jsonls",
             "gopls",
+            "ocamllsp",
+            "html",
+            "lua_ls",
+            "ruff"
         },
     },
 }
