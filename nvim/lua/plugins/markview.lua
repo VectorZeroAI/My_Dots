@@ -21,7 +21,6 @@ return {
                 desc = "Markdown: toggle split preview",
                 silent = true,
             })
-            
         end,
     },
 }

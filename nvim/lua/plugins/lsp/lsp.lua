@@ -6,17 +6,17 @@ return {
             local util = require("lspconfig.util")
 
             -- Python: Pyright (type checking)
-            vim.lsp.config.pyright = {
-                default_config = {
-                    cmd = { "pyright-langserver", "--stdio" },
-                    filetypes = { "python" },
-                    root_dir = util.root_pattern(
-                        "pyproject.toml",
-                        "setup.py",
-                        ".git"
-                    ),
-                },
-            }
+--            vim.lsp.config.pyright = {
+--                default_config = {
+--                    cmd = { "pyright-langserver", "--stdio" },
+--                    filetypes = { "python" },
+--                    root_dir = util.root_pattern(
+--                        "pyproject.toml",
+--                        "setup.py",
+--                        ".git"
+--                    ),
+--                },
+--            }
 
             -- Python: Ruff (linting/formatting - new native server)
             vim.lsp.config.ruff = {

@@ -1,3 +1,16 @@
+local accept_and_add_str = function (str)
+    return function (cmp)
+        if not cmp.is_menu_visible() or cmp.get_selected_item() == nil then
+            return false
+        end
+        return cmp.accept({
+            callback = function ()
+                vim.api.nvim_feedkeys(str, "n", false)
+            end
+        })
+    end
+end
+
 return {
     "saghen/blink.cmp",
     version = "*",
@@ -9,8 +22,15 @@ return {
         keymap = {
             preset = "default",
 
-            ["<C-Space>"] = { "show", "show_documentation", "hide_documentation" },
             ["<CR>"] = { "accept", "fallback" },
+            ["."] = {
+                accept_and_add_str("."),
+                "fallback"
+            },
+            ["::"] = {
+                accept_and_add_str("::"),
+                "fallback"
+            },
 
             -- snippet navigation
             ["<Tab>"] = {

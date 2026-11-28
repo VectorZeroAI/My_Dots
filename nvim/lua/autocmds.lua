@@ -41,7 +41,7 @@ vim.api.nvim_create_autocmd("FileType", {
 })
 
 vim.api.nvim_create_autocmd("TextYankPost", {
-    desc="Highlight on yank",
+    desc = "Highlight on yank",
     callback = function ()
         vim.highlight.on_yank()
     end
