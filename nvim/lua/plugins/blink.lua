@@ -3,6 +3,7 @@ local accept_and_add_str = function (str)
         if not cmp.is_menu_visible() or cmp.get_selected_item() == nil then
             return false
         end
+
         return cmp.accept({
             callback = function ()
                 vim.api.nvim_feedkeys(str, "n", false)
@@ -23,14 +24,14 @@ return {
             preset = "default",
 
             ["<CR>"] = { "accept", "fallback" },
-            ["."] = {
-                accept_and_add_str("."),
-                "fallback"
-            },
-            ["::"] = {
-                accept_and_add_str("::"),
-                "fallback"
-            },
+            -- ["."] = {
+            --     accept_and_add_str("."),
+            --     "fallback"
+            -- },
+            -- ["::"] = {
+            --     accept_and_add_str("::"),
+            --     "fallback"
+            -- },
 
             -- snippet navigation
             ["<Tab>"] = {
