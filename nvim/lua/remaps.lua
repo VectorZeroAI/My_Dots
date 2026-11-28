@@ -21,14 +21,6 @@ set("n", "<leader>cc", ":cclose<CR>", {desc="[c]quickfix [c]lose command"})
 set("n", "n", "nzz", {desc="[n]ext and center"})
 set("n", "N", "Nzz", {desc="[N]ext invert and center"})
 
-vim.keymap.set("n", "<leader>tc",
-    [=[:s/\v(^|\s)["'([{“‘]*\zs\w/\u&/ge<CR>]=],
-    { desc = "Title case line" })
-
-vim.keymap.set("x", "<leader>tc",
-    [=[:s/\v(^|\s)["'([{“‘]*\zs%V\w/\u&/ge<CR>]=],
-    { desc = "Title case selection" })
-
 ------- Undotree -------------
 
 set("n", "<leader>u", ":Undotree<CR>")
@@ -94,7 +86,7 @@ local harpoon = require('harpoon')
 
 harpoon:setup()
 
-set('n', '<leader>ex', '<cmd>Ex<CR>', {desc = "Open [Ex]plorer"})
+set('n', '<leader>ex', '<cmd>ex<CR>', {desc = "Open [ex]plorer"})
 
 set('n', '<leader>a', function ()
     harpoon:list():add()
