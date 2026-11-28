@@ -6,6 +6,11 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.opt_local.linebreak = true
 
         vim.keymap.set("n", "<leader>b", "ebi**<esc>ea**<esc>", { desc = "[b]old the markdown text" })
+
+        -- spellcheck
+        vim.opt_local.spell = true
+        vim.opt_local.spelllang = { "en_us", "de" }
+        vim.opt_local.spellfile = vim.fn.stdpath("config") .. "/spell/any.utf-8.add"
     end,
 })
 
